@@ -66,7 +66,7 @@ export default function Hero() {
           
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
             Passionate about building intelligent systems that make a difference. 
-            Currently pursuing my B.S. in Computer Science at Arizona State University with a 4.0 GPA.
+            Currently pursuing my B.S. in Computer Science (Hons) at Arizona State University with a 4.0 GPA.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">

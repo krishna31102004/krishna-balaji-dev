@@ -40,7 +40,7 @@ export default function About() {
                 </div>
                 <div>
                   <h4 className="font-medium text-foreground">Education</h4>
-                  <p className="text-sm text-muted-foreground">B.S. Computer Science, ASU</p>
+                  <p className="text-sm text-muted-foreground">B.S. Computer Science (Hons), ASU</p>
                 </div>
               </div>
               
