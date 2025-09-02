@@ -56,10 +56,12 @@ export default function Navigation() {
               </button>
             ))}
             <Button 
-              onClick={() => scrollToSection("#contact")}
+              asChild
               className="bg-gradient-primary hover:shadow-glow transition-all duration-300"
             >
-              Get In Touch
+              <a href="mailto:krishna311004@gmail.com" target="_blank" rel="noopener noreferrer">
+                Get In Touch
+              </a>
             </Button>
           </div>
           
@@ -88,10 +90,12 @@ export default function Navigation() {
                 </button>
               ))}
               <Button 
-                onClick={() => scrollToSection("#contact")}
+                asChild
                 className="bg-gradient-primary hover:shadow-glow transition-all duration-300 w-fit"
               >
-                Get In Touch
+                <a href="mailto:krishna311004@gmail.com" target="_blank" rel="noopener noreferrer">
+                  Get In Touch
+                </a>
               </Button>
             </div>
           </div>
