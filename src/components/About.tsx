@@ -27,17 +27,29 @@ export default function About() {
           <div>
             <h3 className="text-2xl font-semibold mb-6 text-foreground">My Journey</h3>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              I'm currently pursuing my Bachelor's in Computer Science at Arizona State University, 
-              maintaining a perfect 4.0 GPA while being on the Dean's List for 6 consecutive semesters. 
-              My passion lies in developing intelligent systems that solve real-world problems.
+              I'm currently pursuing my <strong>B.S. in Computer Science (Honors)</strong> at <strong>Arizona State University</strong>, 
+              maintaining a perfect <strong>4.0 GPA</strong> and earning a place on the <strong>Dean's List for 6 consecutive semesters</strong>. 
+              My passion lies in building intelligent systems that blend AI, code, and purpose to solve real-world problems.
             </p>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              With experience across machine learning, full-stack development, and AI research, 
-              I've worked on projects ranging from LLM fine-tuning to mobile app development. 
-              I love the intersection of technology and impact.
+              With hands-on experience in <strong>machine learning, full-stack development, and AI research</strong>, 
+              I've worked on projects ranging from <strong>LLM fine-tuning</strong> to <strong>mobile app development</strong>. 
+              I love exploring the intersection of technology and impact.
+            </p>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              Beyond academics, I delivered a <strong>TEDx Talk</strong> on{" "}
+              <a 
+                href="https://www.ted.com/talks/krishna_balaji_life_as_an_introvert" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-primary hover:text-primary/80 transition-colors underline"
+              >
+                <em>Life as an Introvert</em>
+              </a>, sharing my perspective on identity and personal growth. I'm also a recipient of the{" "}
+              <strong>International Award for Young People (IAYP) – Bronze Award</strong>, which recognizes global leadership, resilience, and service.
             </p>
             <p className="text-muted-foreground mb-6 leading-relaxed italic">
-              Outside of tech, I enjoy cricket stats, building tools no one asked for — but everyone ends up using.
+              Outside of tech, I enjoy <strong>analyzing cricket statistics</strong> and <strong>building quirky side tools</strong> that no one asks for—but everyone ends up using.
             </p>
             
             <div className="space-y-4">
