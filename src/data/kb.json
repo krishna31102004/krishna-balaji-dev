@@ -1,0 +1,22 @@
+{
+  "about": "Krishna Balaji (KB) — ML-focused software engineer. Ships end-to-end: data → models → FastAPI/Flask → React/SwiftUI. B.S. CS (Honors), ASU, 4.0 GPA.",
+  "resume": "/Krishna_Balaji_Resume.pdf",
+  "contact": "mailto:krishna311004@gmail.com",
+  "projects": [
+    {
+      "name": "AI-Powered Job Matcher",
+      "links": { "code":"https://github.com/krishna31102004/ai-job-matcher", "demo":"https://ai-job-matcher-beige.vercel.app" },
+      "outcome": "<300ms API latency; switchable embeddings; FastAPI+React"
+    },
+    {
+      "name": "Fake News Detection API",
+      "links": { "code":"https://github.com/krishna31102004/fake-news-detection" },
+      "outcome": "DistilBERT; 99%+ reported accuracy"
+    },
+    {
+      "name": "Charity Donation Manager (iOS)",
+      "links": { "code":"https://github.com/krishna31102004/charity-donation-manager" },
+      "outcome": "SwiftUI; favorites, map discovery, dummy payments"
+    }
+  ]
+}
