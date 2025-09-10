@@ -67,7 +67,7 @@ export default function Hero() {
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 font-light max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
             Machine Learning-focused software engineer passionate about building intelligent systems that deliver real-world value. 
             Currently pursuing B.S. Computer Science (Honors) at ASU with a 4.0 GPA, creating AI-powered solutions from LLM fine-tuning to full-stack applications.
           </p>
