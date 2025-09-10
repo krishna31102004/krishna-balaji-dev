@@ -5,6 +5,7 @@ import { Github, ExternalLink, Calendar } from "lucide-react";
 import aiJobMatcherImage from "@/assets/ai-job-matcher.jpg";
 import fakeNewsDetectionImage from "@/assets/fake-news-detection.jpg";
 import charityDonationImage from "@/assets/charity-donation-manager.jpg";
+import pennywiseAiImage from "@/assets/pennywise-ai.jpg";
 
 const projects = [
   {
@@ -41,7 +42,8 @@ const projects = [
     skills: ["Next.js", "TypeScript", "Prisma", "Neon Postgres", "Plaid", "OpenAI", "Recharts", "Vercel", "pgvector (optional)"],
     category: "FinTech/AI",
     codeUrl: "https://github.com/krishna31102004/pennywise-ai",
-    demoUrl: "https://pennywise-ai.vercel.app"
+    demoUrl: "https://pennywise-ai.vercel.app",
+    image: pennywiseAiImage
   },
   {
     title: "Jirani Digital Library Software",
