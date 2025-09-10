@@ -11,81 +11,26 @@ export default function About() {
             About Me
           </h2>
           <p className="text-lg text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            I'm Krishna Balaji (KB), an ML-focused software engineer who loves turning ideas into intelligent systems that actually ship. I build end-to-end: training/evaluating models, serving robust APIs with FastAPI/Flask, and crafting clean UIs in React/SwiftUI. Recent work includes an AI-Powered Job Matcher, a Fake News Detection API (DistilBERT), and an iOS Charity Donation Manager. I'm pursuing a B.S. in Computer Science (Honors) at Arizona State University with a 4.0 GPA, and I'm seeking roles in <strong>Machine Learning Engineering / Applied AI / Full-Stack</strong> where I can own data, models, infra, and UX.
+            I'm Krishna Balaji (KB), a Machine Learning–focused software engineer passionate about building intelligent systems that deliver real-world value. My recent projects include AI-Powered Job Matcher, a platform combining FastAPI, React, and LLM embeddings to match candidates with roles; Pennywise AI, a fintech dashboard that integrates Plaid APIs and AI-powered insights for smarter financial decisions; and Charity Donation Manager, an offline-first iOS app in SwiftUI that helps users discover and support charities with location-aware features. These projects reflect my ability to work end-to-end, from ML models and APIs to secure deployments and user-friendly UIs.
           </p>
-          <div className="mt-6 max-w-4xl mx-auto">
-            <div className="text-sm text-muted-foreground">
-              <span className="font-medium text-foreground">Core:</span> Python, FastAPI/Flask, PyTorch, scikit-learn, Docker · 
-              <span className="font-medium text-foreground">NLP/Embeddings:</span> DistilBERT, Sentence-Transformers, OpenAI · 
-              <span className="font-medium text-foreground">Frontend:</span> React + Tailwind, SwiftUI · 
-              <span className="font-medium text-foreground">DevOps:</span> Vercel, Render, GitHub Actions, Postgres/Firebase
-            </div>
-          </div>
+          <p className="text-lg text-muted-foreground max-w-4xl mx-auto leading-relaxed mt-6">
+            I'm pursuing a B.S. in Computer Science (Honors) at Arizona State University, where I maintain a 4.0 GPA and have been recognized on the Dean's List for six consecutive semesters. My academic and project work spans machine learning, full-stack development, and applied AI research, with experience ranging from LLM fine-tuning to mobile app development. I'm especially excited about creating AI systems that combine technical depth with impact in fields like finance, health, and sustainability.
+          </p>
+          <p className="text-lg text-muted-foreground max-w-4xl mx-auto leading-relaxed mt-6">
+            Beyond academics, I delivered a TEDx Talk on{" "}
+            <a 
+              href="https://www.ted.com/talks/krishna_balaji_life_as_an_introvert" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-primary hover:text-primary/80 transition-colors underline"
+            >
+              <em>Life as an Introvert</em>
+            </a>, sharing my perspective on identity and personal growth, and earned the International Award for Young People (Bronze) for leadership and service. Outside of tech, I love analyzing sports statistics and tinkering with side projects—often quirky tools that begin as experiments but end up being surprisingly useful. Looking ahead, I'm eager to collaborate on projects that bring together AI, data, and design to create scalable, meaningful systems.
+          </p>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h3 className="text-2xl font-semibold mb-6 text-foreground">My Journey</h3>
-            <p className="text-muted-foreground mb-6 leading-relaxed">
-              I'm currently pursuing my <strong>B.S. in Computer Science (Honors)</strong> at <strong>Arizona State University</strong>, 
-              maintaining a perfect <strong>4.0 GPA</strong> and earning a place on the <strong>Dean's List for 6 consecutive semesters</strong>. 
-              My passion lies in building intelligent systems that blend AI, code, and purpose to solve real-world problems.
-            </p>
-            <p className="text-muted-foreground mb-6 leading-relaxed">
-              With hands-on experience in <strong>machine learning, full-stack development, and AI research</strong>, 
-              I've worked on projects ranging from <strong>LLM fine-tuning</strong> to <strong>mobile app development</strong>. 
-              I love exploring the intersection of technology and impact.
-            </p>
-            <p className="text-muted-foreground mb-6 leading-relaxed">
-              Beyond academics, I delivered a <strong>TEDx Talk</strong> on{" "}
-              <a 
-                href="https://www.ted.com/talks/krishna_balaji_life_as_an_introvert" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-primary hover:text-primary/80 transition-colors underline"
-              >
-                <em>Life as an Introvert</em>
-              </a>, sharing my perspective on identity and personal growth. I'm also a recipient of the{" "}
-              <strong>International Award for Young People (IAYP) – Bronze Award</strong>, which recognizes global leadership, resilience, and service.
-            </p>
-            <p className="text-muted-foreground mb-6 leading-relaxed italic">
-              Outside of tech, I enjoy <strong>analyzing cricket statistics</strong> and <strong>building quirky side tools</strong> that no one asks for—but everyone ends up using.
-            </p>
-            
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary/10 rounded-lg">
-                  <GraduationCap className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-medium text-foreground">Education</h4>
-                  <p className="text-sm text-muted-foreground">B.S. Computer Science (Hons), ASU</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary/10 rounded-lg">
-                  <Award className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-medium text-foreground">Achievement</h4>
-                  <p className="text-sm text-muted-foreground">4.0 GPA, Dean's List x6</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-primary/10 rounded-lg">
-                  <MapPin className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-medium text-foreground">Location</h4>
-                  <p className="text-sm text-muted-foreground">Tempe, Arizona</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <Card className="bg-gradient-secondary border-border hover:shadow-elegant transition-all duration-300">
+        <div className="flex justify-center">
+          <Card className="bg-gradient-secondary border-border hover:shadow-elegant transition-all duration-300 w-full max-w-2xl">
             <CardContent className="p-8">
               <h3 className="text-xl font-semibold mb-6 text-foreground">Core Competencies</h3>
               
