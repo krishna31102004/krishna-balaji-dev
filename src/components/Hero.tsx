@@ -70,10 +70,12 @@ export default function Hero() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <Button size="lg" className="bg-gradient-primary hover:shadow-glow transition-all duration-300">
-              <Mail className="mr-2 h-5 w-5" />
-              Get In Touch
-            </Button>
+            <a href="mailto:krishna311004@gmail.com">
+              <Button size="lg" className="bg-gradient-primary hover:shadow-glow transition-all duration-300">
+                <Mail className="mr-2 h-5 w-5" />
+                Get In Touch
+              </Button>
+            </a>
             <a href="https://krishna-balaji-resume.tiiny.site/" target="_blank" rel="noopener noreferrer">
               <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300">
                 <ExternalLink className="mr-2 h-5 w-5" />

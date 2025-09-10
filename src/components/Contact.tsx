@@ -73,10 +73,12 @@ export default function Contact() {
                 </a>
               </div>
               
-              <Button className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300">
-                <Mail className="mr-2 h-5 w-5" />
-                Send Message
-              </Button>
+              <a href="mailto:krishna311004@gmail.com" className="w-full">
+                <Button className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300">
+                  <Mail className="mr-2 h-5 w-5" />
+                  Send Message
+                </Button>
+              </a>
             </CardContent>
           </Card>
         </div>
