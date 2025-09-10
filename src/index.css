@@ -119,11 +119,21 @@ All colors MUST be HSL.
   }
   
   .hover-lift {
-    @apply transition-all duration-300 hover:translate-y-[-2px] hover:shadow-float;
+    @apply transition-all duration-300;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px -5px hsl(var(--primary) / 0.15);
   }
   
   .skill-badge-hover {
-    @apply transition-all duration-300 hover:scale-105 hover:shadow-glow;
+    @apply transition-all duration-300;
+  }
+  
+  .skill-badge-hover:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
   }
 }
 
