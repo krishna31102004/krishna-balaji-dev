@@ -81,7 +81,7 @@ export default function Projects() {
         
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {projects.map((project, index) => (
-            <Card key={index} className="bg-gradient-secondary border-border hover:shadow-elegant transition-all duration-300 group h-full overflow-hidden">
+            <Card key={index} className="bg-gradient-secondary border-border hover:shadow-elegant transition-all duration-300 group h-full overflow-hidden hover-lift glass-effect">
               {project.image && (
                 <div className="aspect-video overflow-hidden">
                   <img 
@@ -121,37 +121,35 @@ export default function Projects() {
                 
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.skills.map((skill) => (
-                    <Badge key={skill} variant="secondary" className="bg-primary/10 text-primary border-primary/20">
+                    <Badge key={skill} variant="secondary" className="bg-primary/10 text-primary border-primary/20 skill-badge-hover">
                       {skill}
                     </Badge>
                   ))}
                 </div>
                 
                 <div className="flex gap-3">
-                  {project.codeUrl && (
-                    <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground" asChild>
+                  {project.codeUrl ? (
+                    <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground hover-lift" asChild>
                       <a href={project.codeUrl} target="_blank" rel="noopener noreferrer">
                         <Github className="mr-2 h-4 w-4" />
                         Code
                       </a>
                     </Button>
-                  )}
-                  {!project.codeUrl && (
-                    <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                  ) : (
+                    <Button variant="outline" size="sm" className="border-muted-foreground/30 text-muted-foreground cursor-not-allowed opacity-50" disabled>
                       <Github className="mr-2 h-4 w-4" />
                       Code
                     </Button>
                   )}
-                  {project.demoUrl && (
-                    <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground" asChild>
+                  {project.demoUrl ? (
+                    <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground hover-lift" asChild>
                       <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="mr-2 h-4 w-4" />
                         Demo
                       </a>
                     </Button>
-                  )}
-                  {!project.demoUrl && (
-                    <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                  ) : (
+                    <Button variant="outline" size="sm" className="border-muted-foreground/30 text-muted-foreground cursor-not-allowed opacity-50" disabled>
                       <ExternalLink className="mr-2 h-4 w-4" />
                       Demo
                     </Button>

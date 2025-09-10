@@ -85,8 +85,15 @@ export default function Chat() {
             ))}
             {loading && (
               <div className="text-left">
-                <span className="inline-block bg-muted px-3 py-2 rounded-xl">
-                  Typing...
+                <span className="inline-block bg-muted px-3 py-2 rounded-xl animate-pulse">
+                  <span className="flex items-center gap-1">
+                    Typing
+                    <span className="flex gap-1">
+                      <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                      <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                      <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                    </span>
+                  </span>
                 </span>
               </div>
             )}

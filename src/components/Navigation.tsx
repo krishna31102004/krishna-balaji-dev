@@ -77,9 +77,10 @@ export default function Navigation() {
         </div>
         
         {/* Mobile Navigation Menu */}
-        {isOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-md border-b border-border">
-            <div className="flex flex-col space-y-4 p-6">
+        <div className={`md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-md border-b border-border transition-all duration-300 overflow-hidden ${
+          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        }`}>
+          <div className="flex flex-col space-y-4 p-6">
               {navItems.map((item) => (
                 <button
                   key={item.name}
@@ -97,9 +98,8 @@ export default function Navigation() {
                   Get In Touch
                 </a>
               </Button>
-            </div>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );
