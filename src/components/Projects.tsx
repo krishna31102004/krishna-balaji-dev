@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, ExternalLink, Calendar } from "lucide-react";
+import LazyImage from "@/components/ui/image-lazy";
 import aiJobMatcherImage from "@/assets/ai-job-matcher.jpg";
 import fakeNewsDetectionImage from "@/assets/fake-news-detection.jpg";
 import charityDonationImage from "@/assets/charity-donation-manager.jpg";
@@ -83,13 +84,11 @@ export default function Projects() {
           {projects.map((project, index) => (
             <Card key={index} className="bg-gradient-secondary border-border hover:shadow-elegant transition-all duration-300 group h-full overflow-hidden hover-lift glass-effect">
               {project.image && (
-                <div className="aspect-video overflow-hidden">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
+                <LazyImage
+                  src={project.image}
+                  alt={`${project.title} - ${project.description.substring(0, 100)}...`}
+                  className="group-hover:scale-105 transition-transform duration-300"
+                />
               )}
               <CardHeader>
                 <div className="flex items-start justify-between gap-4">

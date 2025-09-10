@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail, ExternalLink } from "lucide-react";
 import { useState, useEffect } from "react";
+import ParallaxSection from "@/components/ui/parallax-section";
 
 export default function Hero() {
   const [currentText, setCurrentText] = useState("");
@@ -43,9 +44,15 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary/20" />
       
       {/* Floating elements */}
-      <div className="absolute top-20 left-10 w-4 h-4 bg-primary rounded-full animate-float opacity-60" />
-      <div className="absolute top-40 right-20 w-6 h-6 bg-primary/40 rounded-full animate-float" style={{ animationDelay: '1s' }} />
-      <div className="absolute bottom-40 left-20 w-3 h-3 bg-primary-glow rounded-full animate-float" style={{ animationDelay: '2s' }} />
+      <ParallaxSection speed={0.3} className="absolute top-20 left-10">
+        <div className="w-4 h-4 bg-primary rounded-full animate-float opacity-60" />
+      </ParallaxSection>
+      <ParallaxSection speed={0.5} className="absolute top-40 right-20">
+        <div className="w-6 h-6 bg-primary/40 rounded-full animate-float" style={{ animationDelay: '1s' }} />
+      </ParallaxSection>
+      <ParallaxSection speed={0.2} className="absolute bottom-40 left-20">
+        <div className="w-3 h-3 bg-primary-glow rounded-full animate-float" style={{ animationDelay: '2s' }} />
+      </ParallaxSection>
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
@@ -60,13 +67,9 @@ export default function Hero() {
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground mb-4 font-light">
-            Passionate about turning ideas into intelligent systems — blending AI, code, and purpose.
-          </p>
-          
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-            Passionate about building intelligent systems that make a difference. 
-            Currently pursuing my B.S. in Computer Science (Hons) at Arizona State University with a 4.0 GPA.
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8 font-light max-w-3xl mx-auto leading-relaxed">
+            Machine Learning-focused software engineer passionate about building intelligent systems that deliver real-world value. 
+            Currently pursuing B.S. Computer Science (Honors) at ASU with a 4.0 GPA, creating AI-powered solutions from LLM fine-tuning to full-stack applications.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
