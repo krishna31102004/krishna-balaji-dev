@@ -35,6 +35,15 @@ const projects = [
     image: charityDonationImage
   },
   {
+    title: "Pennywise AI — Personal Finance Tracker with AI Insights",
+    period: "Aug 2025 – Sep 2025",
+    description: "Production-ready Next.js app that links Plaid Sandbox accounts, securely syncs transactions/balances, and surfaces KPIs (runway, burn, MTD spend) with interactive charts. Includes per-visitor sessions, a resilient `/jobs/refresh` pipeline (optional webhooks), encrypted Plaid tokens, NL \"Ask\" and AI Insights, and idempotent 6-month demo seeding — deployed on Vercel.",
+    skills: ["Next.js", "TypeScript", "Prisma", "Neon Postgres", "Plaid", "OpenAI", "Recharts", "Vercel", "pgvector (optional)"],
+    category: "FinTech/AI",
+    codeUrl: "https://github.com/krishna31102004/pennywise-ai",
+    demoUrl: "https://pennywise-ai.vercel.app"
+  },
+  {
     title: "Jirani Digital Library Software",
     period: "Aug 2023 – Dec 2023",
     description: "Developed the front-end for an SQL-based knowledge hub aiding underprivileged learners in Kenya. Pitched and secured $3,000 in funding through a competition based on usability and impact.",
@@ -49,7 +58,8 @@ const getCategoryColor = (category: string) => {
     "ML/AI": "bg-blue-500/10 text-blue-400 border-blue-500/20",
     "Mobile App": "bg-green-500/10 text-green-400 border-green-500/20",
     "Web Extension": "bg-purple-500/10 text-purple-400 border-purple-500/20",
-    "Social Impact": "bg-orange-500/10 text-orange-400 border-orange-500/20"
+    "Social Impact": "bg-orange-500/10 text-orange-400 border-orange-500/20",
+    "FinTech/AI": "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
   };
   return colors[category as keyof typeof colors] || "bg-primary/10 text-primary border-primary/20";
 };
