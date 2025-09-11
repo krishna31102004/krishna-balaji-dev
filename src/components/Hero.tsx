@@ -79,12 +79,17 @@ export default function Hero() {
                 Get In Touch
               </Button>
             </a>
-            <a href="https://krishna-balaji-resume.tiiny.site/" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300">
+            <Button asChild variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300">
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open resume (PDF) in a new tab"
+              >
                 <ExternalLink className="mr-2 h-5 w-5" />
                 View Resume
-              </Button>
-            </a>
+              </a>
+            </Button>
           </div>
           
           <div className="flex justify-center gap-6">
