@@ -4,77 +4,120 @@ import { Github, Linkedin, Mail, Phone, ExternalLink } from "lucide-react";
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-20 bg-gradient-secondary/50">
+    <section id="contact" className="py-20" style={{ backgroundColor: 'hsl(var(--bg-0))' }}>
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4"
+              style={{ 
+                background: 'var(--gradient-primary)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}>
             Let's Connect
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: 'hsl(var(--text-1))' }}>
             I'm always open to discussing new opportunities, collaborations, or just having a great conversation about technology
           </p>
         </div>
         
         <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
           <div>
-            <h3 className="text-2xl font-semibold mb-6 text-foreground">Get In Touch</h3>
-            <p className="text-muted-foreground mb-8 leading-relaxed">
+            <h3 className="text-2xl font-semibold mb-6" style={{ color: 'hsl(var(--text-1))' }}>Get In Touch</h3>
+            <p className="mb-8 leading-relaxed" style={{ color: 'hsl(var(--text-1))' }}>
               Whether you're interested in collaborating on a project, discussing opportunities, 
               or just want to connect, I'd love to hear from you. Let's build something amazing together!
             </p>
             
             <div className="space-y-4">
               <a href="mailto:krishna311004@gmail.com" 
-                 className="flex items-center gap-4 p-4 bg-card border border-border rounded-lg hover:border-primary hover:shadow-glow transition-all duration-300 group">
-                <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                  <Mail className="h-6 w-6 text-primary" />
+                 className="flex items-center gap-4 p-4 rounded-lg border transition-all duration-200 group hover:scale-[1.02]"
+                 style={{ 
+                   backgroundColor: 'hsl(var(--bg-1))',
+                   borderColor: 'rgba(255, 255, 255, 0.06)'
+                 }}>
+                <div className="p-3 rounded-lg transition-colors"
+                     style={{ 
+                       backgroundColor: 'hsl(var(--brand-1) / 0.15)',
+                       ['--group-hover-bg' as any]: 'hsl(var(--brand-1) / 0.25)'
+                     }}>
+                  <Mail className="h-6 w-6" style={{ color: 'hsl(var(--brand-1))' }} />
                 </div>
                 <div>
-                  <h4 className="font-medium text-foreground">Email</h4>
-                  <p className="text-muted-foreground">krishna311004@gmail.com</p>
+                  <h4 className="font-medium" style={{ color: 'hsl(var(--text-1))' }}>Email</h4>
+                  <p style={{ color: 'hsl(var(--text-2))' }}>krishna311004@gmail.com</p>
                 </div>
               </a>
               
               <a href="tel:+14802341166" 
-                 className="flex items-center gap-4 p-4 bg-card border border-border rounded-lg hover:border-primary hover:shadow-glow transition-all duration-300 group">
-                <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                  <Phone className="h-6 w-6 text-primary" />
+                 className="flex items-center gap-4 p-4 rounded-lg border transition-all duration-200 group hover:scale-[1.02]"
+                 style={{ 
+                   backgroundColor: 'hsl(var(--bg-1))',
+                   borderColor: 'rgba(255, 255, 255, 0.06)'
+                 }}>
+                <div className="p-3 rounded-lg transition-colors"
+                     style={{ 
+                       backgroundColor: 'hsl(var(--brand-2) / 0.15)',
+                       ['--group-hover-bg' as any]: 'hsl(var(--brand-2) / 0.25)'
+                     }}>
+                  <Phone className="h-6 w-6" style={{ color: 'hsl(var(--brand-2))' }} />
                 </div>
                 <div>
-                  <h4 className="font-medium text-foreground">Phone</h4>
-                  <p className="text-muted-foreground">(480) 234-1166</p>
+                  <h4 className="font-medium" style={{ color: 'hsl(var(--text-1))' }}>Phone</h4>
+                  <p style={{ color: 'hsl(var(--text-2))' }}>(480) 234-1166</p>
                 </div>
               </a>
-              
             </div>
           </div>
           
-          <Card className="bg-gradient-secondary border-border">
+          <Card className="experience-card">
             <CardContent className="p-8">
-              <h3 className="text-xl font-semibold mb-6 text-foreground">Connect With Me</h3>
+              <h3 className="text-xl font-semibold mb-6" style={{ color: 'hsl(var(--text-1))' }}>Connect With Me</h3>
               
               <div className="space-y-4 mb-8">
                 <a href="https://github.com/krishna31102004" target="_blank" rel="noopener noreferrer"
-                   className="flex items-center gap-4 p-4 rounded-lg hover:bg-primary/5 transition-colors group">
-                  <Github className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
+                   className="flex items-center gap-4 p-4 rounded-lg transition-colors group"
+                   style={{ ['--hover-bg' as any]: 'hsl(var(--brand-1) / 0.05)' }}>
+                  <Github className="h-6 w-6 transition-colors" 
+                          style={{ 
+                            color: 'hsl(var(--text-2))',
+                            ['--hover-color' as any]: 'hsl(var(--brand-1))'
+                          }}
+                          onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(var(--brand-1))'}
+                          onMouseLeave={(e) => e.currentTarget.style.color = 'hsl(var(--text-2))'}
+                  />
                   <div>
-                    <h4 className="font-medium text-foreground">GitHub</h4>
-                    <p className="text-sm text-muted-foreground">Check out my code and projects</p>
+                    <h4 className="font-medium" style={{ color: 'hsl(var(--text-1))' }}>GitHub</h4>
+                    <p className="text-sm" style={{ color: 'hsl(var(--text-2))' }}>Check out my code and projects</p>
                   </div>
                 </a>
                 
                 <a href="https://linkedin.com/in/krishna-balaji-53785a257" target="_blank" rel="noopener noreferrer"
-                   className="flex items-center gap-4 p-4 rounded-lg hover:bg-primary/5 transition-colors group">
-                  <Linkedin className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
+                   className="flex items-center gap-4 p-4 rounded-lg transition-colors group"
+                   style={{ ['--hover-bg' as any]: 'hsl(var(--brand-1) / 0.05)' }}>
+                  <Linkedin className="h-6 w-6 transition-colors" 
+                            style={{ 
+                              color: 'hsl(var(--text-2))',
+                              ['--hover-color' as any]: 'hsl(var(--brand-1))'
+                            }}
+                            onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(var(--brand-1))'}
+                            onMouseLeave={(e) => e.currentTarget.style.color = 'hsl(var(--text-2))'}
+                  />
                   <div>
-                    <h4 className="font-medium text-foreground">LinkedIn</h4>
-                    <p className="text-sm text-muted-foreground">Let's connect professionally</p>
+                    <h4 className="font-medium" style={{ color: 'hsl(var(--text-1))' }}>LinkedIn</h4>
+                    <p className="text-sm" style={{ color: 'hsl(var(--text-2))' }}>Let's connect professionally</p>
                   </div>
                 </a>
               </div>
               
               <a href="mailto:krishna311004@gmail.com" className="w-full">
-                <Button className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300">
+                <Button 
+                  className="w-full transition-all duration-200 hover:scale-[1.02]"
+                  style={{ 
+                    background: 'var(--gradient-primary)',
+                    color: 'hsl(var(--bg-0))'
+                  }}
+                >
                   <Mail className="mr-2 h-5 w-5" />
                   Send Message
                 </Button>

@@ -71,17 +71,23 @@ export default function Projects() {
     <section id="projects" className="py-20">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4"
+              style={{ 
+                background: 'var(--gradient-primary)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}>
             Projects
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: 'hsl(var(--text-1))' }}>
             A showcase of my work in machine learning, web development, and impactful applications
           </p>
         </div>
         
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {projects.map((project, index) => (
-            <Card key={index} className="bg-gradient-secondary border-border hover:shadow-elegant transition-all duration-300 group h-full overflow-hidden hover-lift glass-effect">
+            <Card key={index} className="experience-card group h-full overflow-hidden">
               {project.image && (
                 <div className="aspect-video overflow-hidden">
                   <img 
@@ -95,19 +101,20 @@ export default function Projects() {
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <Badge className={getCategoryColor(project.category)}>
+                      <Badge className={`skill-tag ${getCategoryColor(project.category)}`}>
                         {project.category}
                       </Badge>
                       {project.highlight && (
-                        <Badge variant="outline" className="border-primary text-primary">
+                        <Badge className="skill-tag border-primary/20" style={{ color: 'hsl(var(--brand-1))' }}>
                           {project.highlight}
                         </Badge>
                       )}
                     </div>
-                    <CardTitle className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                    <CardTitle className="text-xl font-semibold transition-colors" 
+                              style={{ color: 'hsl(var(--text-1))' }}>
                       {project.title}
                     </CardTitle>
-                    <div className="flex items-center gap-2 mt-2 text-muted-foreground">
+                    <div className="flex items-center gap-2 mt-2" style={{ color: 'hsl(var(--text-2))' }}>
                       <Calendar className="h-4 w-4" />
                       <span className="text-sm">{project.period}</span>
                     </div>
@@ -115,13 +122,13 @@ export default function Projects() {
                 </div>
               </CardHeader>
               <CardContent className="pt-0">
-                <p className="text-muted-foreground leading-relaxed mb-6">
+                <p className="leading-relaxed mb-6" style={{ color: 'hsl(var(--text-1))' }}>
                   {project.description}
                 </p>
                 
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.skills.map((skill) => (
-                    <Badge key={skill} variant="secondary" className="bg-primary/10 text-primary border-primary/20 skill-badge-hover">
+                    <Badge key={skill} className="skill-tag">
                       {skill}
                     </Badge>
                   ))}
@@ -129,27 +136,47 @@ export default function Projects() {
                 
                 <div className="flex gap-3">
                   {project.codeUrl ? (
-                    <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground hover-lift" asChild>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="transition-all duration-150 hover:scale-105"
+                      style={{
+                        borderColor: 'hsl(var(--brand-1))',
+                        color: 'hsl(var(--brand-1))',
+                        backgroundColor: 'transparent'
+                      }}
+                      asChild
+                    >
                       <a href={project.codeUrl} target="_blank" rel="noopener noreferrer">
                         <Github className="mr-2 h-4 w-4" />
                         Code
                       </a>
                     </Button>
                   ) : (
-                    <Button variant="outline" size="sm" className="border-muted-foreground/30 text-muted-foreground cursor-not-allowed opacity-50" disabled>
+                    <Button variant="outline" size="sm" className="opacity-50 cursor-not-allowed" disabled>
                       <Github className="mr-2 h-4 w-4" />
                       Code
                     </Button>
                   )}
                   {project.demoUrl ? (
-                    <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground hover-lift" asChild>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="transition-all duration-150 hover:scale-105"
+                      style={{
+                        borderColor: 'hsl(var(--brand-2))',
+                        color: 'hsl(var(--brand-2))',
+                        backgroundColor: 'transparent'
+                      }}
+                      asChild
+                    >
                       <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="mr-2 h-4 w-4" />
                         Demo
                       </a>
                     </Button>
                   ) : (
-                    <Button variant="outline" size="sm" className="border-muted-foreground/30 text-muted-foreground cursor-not-allowed opacity-50" disabled>
+                    <Button variant="outline" size="sm" className="opacity-50 cursor-not-allowed" disabled>
                       <ExternalLink className="mr-2 h-4 w-4" />
                       Demo
                     </Button>

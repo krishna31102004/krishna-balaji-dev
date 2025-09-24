@@ -77,64 +77,37 @@ export default function Experience() {
           {experiences.map((exp, index) => (
             <Card 
               key={index} 
-              className="group relative bg-card/60 backdrop-blur-md border border-border/40 rounded-[1.25rem] hover:border-primary/40 transition-all duration-300 overflow-hidden"
-              style={{
-                background: 'rgba(20, 20, 30, 0.6)',
-                backdropFilter: 'blur(12px)',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-              }}
+              className="experience-card group"
             >
-              {/* Animated gradient border */}
-              <div 
-                className="absolute inset-0 rounded-[1.25rem] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                style={{
-                  background: 'linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary)))',
-                  backgroundSize: '200% 100%',
-                  animation: 'gradientShift 3s ease-in-out infinite',
-                  padding: '2px',
-                  mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                  maskComposite: 'xor',
-                }}
-              />
-              
-              {/* Glow effect */}
-              <div 
-                className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[1.25rem]"
-              />
-              
               <CardHeader className="relative z-10 p-6">
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden bg-background/20 backdrop-blur-sm flex items-center justify-center p-2 border border-primary/20 group-hover:scale-105 transition-transform duration-300">
-                      {exp.logo ? (
-                        <img 
-                          src={exp.logo} 
-                          alt={`${exp.company} logo`}
-                          className="w-full h-full object-contain rounded-lg"
-                        />
-                      ) : (
-                        <Building2 className="w-6 h-6 text-primary" />
-                      )}
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden bg-background/20 backdrop-blur-sm flex items-center justify-center p-2 border border-white/10 group-hover:scale-105 transition-transform duration-200">
+                      <img 
+                        src={exp.logo} 
+                        alt={`${exp.company} logo`}
+                        className="w-full h-full object-contain rounded-lg"
+                      />
                     </div>
                     <div className="flex-1">
-                      <CardTitle className="text-lg md:text-xl font-semibold text-foreground group-hover:text-primary transition-colors mb-1">
+                      <CardTitle className="text-lg md:text-xl font-semibold mb-1" style={{ color: 'hsl(var(--text-1))' }}>
                         {exp.title}
                       </CardTitle>
                       <div className="flex items-center gap-2">
-                        <Building2 className="h-4 w-4 text-primary" />
-                        <span className="font-medium text-foreground/80 text-sm">{exp.company}</span>
+                        <Building2 className="h-4 w-4" style={{ color: 'hsl(var(--brand-1))' }} />
+                        <span className="font-medium text-sm" style={{ color: 'hsl(var(--text-2))' }}>{exp.company}</span>
                       </div>
                     </div>
                   </div>
                   
                   <div className="flex flex-col sm:flex-row gap-2 lg:text-right">
-                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm">
-                      <CalendarDays className="h-3 w-3 text-primary" />
-                      <span className="text-xs font-medium text-primary">{exp.period}</span>
+                    <div className="info-pill">
+                      <CalendarDays className="h-3 w-3" style={{ color: 'hsl(var(--brand-1))' }} />
+                      <span className="text-xs font-medium">{exp.period}</span>
                     </div>
-                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20 backdrop-blur-sm">
-                      <MapPin className="h-3 w-3 text-accent" />
-                      <span className="text-xs font-medium text-accent">{exp.location}</span>
+                    <div className="info-pill">
+                      <MapPin className="h-3 w-3" style={{ color: 'hsl(var(--brand-2))' }} />
+                      <span className="text-xs font-medium">{exp.location}</span>
                     </div>
                   </div>
                 </div>
@@ -142,16 +115,23 @@ export default function Experience() {
               
               <CardContent className="relative z-10 px-6 pb-6">
                 <div className="mb-6">
-                  <ul className="space-y-3">
+                  <ul className="space-y-3 experience-bullets">
                     {exp.description.slice(0, expandedCards[index] ? exp.description.length : 2).map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-3 text-muted-foreground leading-relaxed text-sm">
+                      <li key={idx} className="flex items-start gap-3 leading-relaxed text-sm">
                         <div 
-                          className="w-2 h-2 bg-gradient-primary rounded-full mt-2 flex-shrink-0 animate-pulse group-hover:scale-110 transition-transform duration-200" 
-                          style={{ animationDuration: `${2 + idx * 0.3}s` }}
+                          className="w-2 h-2 rounded-full mt-2 flex-shrink-0 transition-transform duration-200" 
+                          style={{ 
+                            background: 'var(--gradient-primary)',
+                            animation: `pulse ${2 + idx * 0.3}s ease-in-out infinite`
+                          }}
                         />
                         <span 
                           dangerouslySetInnerHTML={{ __html: renderDescription(item) }}
-                          className="[&>strong]:text-foreground [&>strong]:font-semibold"
+                          className="[&>strong]:font-semibold"
+                          style={{ 
+                            color: 'hsl(var(--text-1))',
+                            ['--strong-color' as any]: 'hsl(var(--text-1))'
+                          }}
                         />
                       </li>
                     ))}
@@ -162,7 +142,11 @@ export default function Experience() {
                       variant="ghost"
                       size="sm"
                       onClick={() => toggleExpanded(index)}
-                      className="mt-3 h-auto p-2 text-xs text-primary hover:text-primary hover:bg-primary/5 transition-all duration-200 hover:scale-105"
+                      className="mt-3 h-auto p-2 text-xs hover:scale-105 transition-all duration-150"
+                      style={{ 
+                        color: 'hsl(var(--brand-1))',
+                        ['--hover-bg' as any]: 'hsl(var(--brand-1) / 0.1)'
+                      }}
                     >
                       {expandedCards[index] ? (
                         <>
@@ -183,11 +167,9 @@ export default function Experience() {
                   {exp.skills.map((skill, skillIndex) => (
                     <Badge 
                       key={skill} 
-                      variant="secondary" 
-                      className="relative bg-gradient-to-r from-primary/10 to-accent/10 text-primary border-primary/20 text-xs px-3 py-1.5 rounded-full font-medium hover:scale-105 hover:-translate-y-0.5 transition-all duration-200 backdrop-blur-sm"
+                      className="skill-tag"
                       style={{
-                        background: `hsl(var(--primary) / 0.${2 + skillIndex % 3})`,
-                        transitionDelay: `${skillIndex * 50}ms`
+                        transitionDelay: `${skillIndex * 30}ms`
                       }}
                     >
                       {skill}

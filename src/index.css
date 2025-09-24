@@ -8,43 +8,54 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 220 26% 6%;
-    --foreground: 210 40% 98%;
+    /* Custom color system for readability */
+    --bg-0: 220 36% 8%;     /* #0B1020 equivalent */
+    --bg-1: 224 42% 13%;    /* #11182B equivalent */
+    --bg-1-veil: 224 42% 13% / 0.72;
+    --text-1: 220 35% 93%;  /* #E8ECF5 equivalent */
+    --text-2: 223 25% 73%;  /* #B7C0D8 equivalent */
+    --brand-1: 263 85% 67%; /* #7C5CFF */
+    --brand-2: 187 100% 50%; /* #00E5FF */
+    --ok-veil: 263 85% 67% / 0.15;
 
-    --card: 224 26% 8%;
-    --card-foreground: 210 40% 98%;
+    /* Standard variables mapped to new system */
+    --background: var(--bg-0);
+    --foreground: var(--text-1);
 
-    --popover: 224 26% 8%;
-    --popover-foreground: 210 40% 98%;
+    --card: var(--bg-1);
+    --card-foreground: var(--text-1);
 
-    --primary: 263 85% 65%;
-    --primary-foreground: 210 40% 98%;
+    --popover: var(--bg-1);
+    --popover-foreground: var(--text-1);
+
+    --primary: var(--brand-1);
+    --primary-foreground: var(--bg-0);
     --primary-glow: 263 75% 75%;
 
-    --secondary: 228 26% 18%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: var(--bg-1);
+    --secondary-foreground: var(--text-1);
 
-    --muted: 228 26% 18%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: var(--bg-1);
+    --muted-foreground: var(--text-2);
 
-    --accent: 263 85% 65%;
-    --accent-foreground: 210 40% 98%;
+    --accent: var(--brand-2);
+    --accent-foreground: var(--bg-0);
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: var(--text-1);
 
-    --border: 228 26% 18%;
-    --input: 228 26% 18%;
-    --ring: 263 85% 65%;
+    --border: 224 42% 13%;
+    --input: var(--bg-1);
+    --ring: var(--brand-2);
 
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-secondary: linear-gradient(135deg, hsl(228 26% 8%), hsl(224 26% 12%));
-    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.2);
-    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.3);
-    --shadow-float: 0 5px 20px -5px hsl(var(--primary) / 0.15);
+    --gradient-primary: linear-gradient(90deg, hsl(var(--brand-1)), hsl(var(--brand-2)));
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--bg-1)), hsl(224 42% 15%));
+    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+    --shadow-glow: 0 0 40px hsl(var(--brand-1) / 0.2);
+    --shadow-elegant: 0 10px 30px rgba(0, 0, 0, 0.35);
+    --shadow-float: 0 16px 40px rgba(0, 0, 0, 0.45);
 
-    --radius: 0.75rem;
+    --radius: 1.25rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -109,12 +120,84 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-size: 16px;
+    line-height: 1.6;
   }
 }
 
 @layer components {
+  /* Experience cards styling */
+  .experience-card {
+    position: relative;
+    background: hsl(var(--bg-1));
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    box-shadow: var(--shadow-elegant);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    backdrop-filter: blur(12px);
+  }
+  
+  .experience-card::before {
+    content: "";
+    position: absolute;
+    left: -1px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--gradient-primary);
+    opacity: 0.9;
+    transition: opacity 0.2s ease;
+  }
+  
+  .experience-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-float);
+  }
+  
+  .experience-card:hover::before {
+    opacity: 1;
+  }
+  
+  /* Pills styling */
+  .info-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    color: hsl(var(--text-1));
+    background: rgba(255, 255, 255, 0.03);
+    font-size: 12.5px;
+    backdrop-filter: blur(8px);
+  }
+  
+  /* Tag styling */
+  .skill-tag {
+    background: hsl(var(--ok-veil));
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 13px;
+    color: hsl(var(--text-1));
+    transition: all 0.15s ease;
+  }
+  
+  .skill-tag:hover {
+    transform: translateY(-1px);
+    background: hsl(var(--brand-1) / 0.2);
+  }
+  
+  /* Bullet points */
+  .experience-bullets li {
+    margin: 8px 0;
+    color: hsl(var(--text-1));
+    opacity: 1;
+  }
+
   .glass-effect {
-    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    background: var(--gradient-glass);
     @apply backdrop-blur-md border border-white/10;
   }
   
@@ -124,16 +207,7 @@ All colors MUST be HSL.
   
   .hover-lift:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 20px -5px hsl(var(--primary) / 0.15);
-  }
-  
-  .skill-badge-hover {
-    @apply transition-all duration-300;
-  }
-  
-  .skill-badge-hover:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+    box-shadow: var(--shadow-float);
   }
 }
 

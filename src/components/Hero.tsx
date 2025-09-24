@@ -40,46 +40,103 @@ export default function Hero() {
   }, [currentText, isDeleting, currentIndex, texts]);
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary/20" />
+      {/* Subtle aurora background */}
+      <div 
+        className="absolute inset-0 opacity-40"
+        style={{
+          background: `
+            radial-gradient(circle at 30% 20%, hsl(var(--brand-1) / 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 70% 80%, hsl(var(--brand-2) / 0.1) 0%, transparent 50%),
+            hsl(var(--bg-0))
+          `
+        }}
+      />
       
-      {/* Floating elements */}
+      {/* Floating elements with micro-motion */}
       <ParallaxSection speed={0.3} className="absolute top-20 left-10">
-        <div className="w-4 h-4 bg-primary rounded-full animate-float opacity-60" />
+        <div 
+          className="w-4 h-4 rounded-full opacity-60"
+          style={{ 
+            background: 'hsl(var(--brand-1))',
+            animation: 'float 18s ease-in-out infinite'
+          }} 
+        />
       </ParallaxSection>
       <ParallaxSection speed={0.5} className="absolute top-40 right-20">
-        <div className="w-6 h-6 bg-primary/40 rounded-full animate-float" style={{ animationDelay: '1s' }} />
+        <div 
+          className="w-6 h-6 rounded-full"
+          style={{ 
+            background: 'hsl(var(--brand-1) / 0.4)',
+            animation: 'float 20s ease-in-out infinite',
+            animationDelay: '1s'
+          }} 
+        />
       </ParallaxSection>
       <ParallaxSection speed={0.2} className="absolute bottom-40 left-20">
-        <div className="w-3 h-3 bg-primary-glow rounded-full animate-float" style={{ animationDelay: '2s' }} />
+        <div 
+          className="w-3 h-3 rounded-full"
+          style={{ 
+            background: 'hsl(var(--brand-2) / 0.6)',
+            animation: 'float 22s ease-in-out infinite',
+            animationDelay: '2s'
+          }} 
+        />
       </ParallaxSection>
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
-          <div className="inline-block mb-6 px-4 py-2 bg-card border border-border rounded-full">
-            <span className="text-primary font-medium">👋 Hello, I'm</span>
+          <div className="inline-block mb-6 px-4 py-2 rounded-full border" 
+               style={{ 
+                 backgroundColor: 'hsl(var(--bg-1))',
+                 borderColor: 'rgba(255, 255, 255, 0.06)'
+               }}>
+            <span style={{ color: 'hsl(var(--brand-1))' }} className="font-medium">👋 Hello, I'm</span>
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent animate-glow">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
+              style={{ 
+                background: 'var(--gradient-primary)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}>
             <span className="inline-block min-h-[1.2em]">
               {currentText}
               <span className="animate-pulse">|</span>
             </span>
           </h1>
           
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto leading-relaxed"
+             style={{ color: 'hsl(var(--text-1))' }}>
             Machine Learning-focused software engineer passionate about building intelligent systems that deliver real-world value. 
             Currently pursuing B.S. Computer Science (Honors) at ASU with a 4.0 GPA, creating AI-powered solutions from LLM fine-tuning to full-stack applications.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <a href="mailto:krishna311004@gmail.com">
-              <Button size="lg" className="bg-gradient-primary hover:shadow-glow transition-all duration-300">
+              <Button 
+                size="lg" 
+                variant="gradient"
+                style={{ 
+                  background: 'var(--gradient-primary)',
+                  color: 'hsl(var(--bg-0))'
+                }}
+              >
                 <Mail className="mr-2 h-5 w-5" />
                 Get In Touch
               </Button>
             </a>
-            <Button asChild variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300">
+            <Button 
+              asChild 
+              variant="outline" 
+              size="lg" 
+              className="transition-all duration-200"
+              style={{
+                borderColor: 'hsl(var(--brand-1))',
+                color: 'hsl(var(--brand-1))',
+                backgroundColor: 'transparent'
+              }}
+            >
               <a
                 href="/resume.pdf"
                 target="_blank"
@@ -94,16 +151,49 @@ export default function Hero() {
           
           <div className="flex justify-center gap-6">
             <a href="https://github.com/krishna31102004" target="_blank" rel="noopener noreferrer" 
-               className="p-3 rounded-full bg-card border border-border hover:border-primary hover:shadow-glow transition-all duration-300 group">
-              <Github className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
+               className="p-3 rounded-full border transition-all duration-200 group hover:scale-105"
+               style={{ 
+                 backgroundColor: 'hsl(var(--bg-1))',
+                 borderColor: 'rgba(255, 255, 255, 0.06)'
+               }}>
+              <Github className="h-6 w-6 transition-colors group-hover:scale-105"
+                      style={{ 
+                        color: 'hsl(var(--text-2))',
+                        ['--hover-color' as any]: 'hsl(var(--brand-1))'
+                      }} 
+                      onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(var(--brand-1))'}
+                      onMouseLeave={(e) => e.currentTarget.style.color = 'hsl(var(--text-2))'}
+              />
             </a>
             <a href="https://linkedin.com/in/krishna-balaji-53785a257" target="_blank" rel="noopener noreferrer" 
-               className="p-3 rounded-full bg-card border border-border hover:border-primary hover:shadow-glow transition-all duration-300 group">
-              <Linkedin className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
+               className="p-3 rounded-full border transition-all duration-200 group hover:scale-105"
+               style={{ 
+                 backgroundColor: 'hsl(var(--bg-1))',
+                 borderColor: 'rgba(255, 255, 255, 0.06)'
+               }}>
+              <Linkedin className="h-6 w-6 transition-colors group-hover:scale-105"
+                        style={{ 
+                          color: 'hsl(var(--text-2))',
+                          ['--hover-color' as any]: 'hsl(var(--brand-1))'
+                        }} 
+                        onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(var(--brand-1))'}
+                        onMouseLeave={(e) => e.currentTarget.style.color = 'hsl(var(--text-2))'}
+              />
             </a>
             <a href="mailto:krishna311004@gmail.com" 
-               className="p-3 rounded-full bg-card border border-border hover:border-primary hover:shadow-glow transition-all duration-300 group">
-              <Mail className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
+               className="p-3 rounded-full border transition-all duration-200 group hover:scale-105"
+               style={{ 
+                 backgroundColor: 'hsl(var(--bg-1))',
+                 borderColor: 'rgba(255, 255, 255, 0.06)'
+               }}>
+              <Mail className="h-6 w-6 transition-colors group-hover:scale-105"
+                    style={{ 
+                      color: 'hsl(var(--text-2))',
+                      ['--hover-color' as any]: 'hsl(var(--brand-1))'
+                    }} 
+                    onMouseEnter={(e) => e.currentTarget.style.color = 'hsl(var(--brand-1))'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = 'hsl(var(--text-2))'}
+              />
             </a>
           </div>
         </div>
