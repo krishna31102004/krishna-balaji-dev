@@ -4,10 +4,10 @@ import { Github, Linkedin, Mail, Phone, ExternalLink } from "lucide-react";
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-20" style={{ backgroundColor: 'hsl(var(--bg-0))' }}>
-      <div className="container mx-auto px-6">
+    <section id="contact" className="section-padding" style={{ backgroundColor: 'hsl(var(--bg-0))' }}>
+      <div className="container mx-auto container-spacing">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4"
+          <h2 className="font-bold mb-6"
               style={{ 
                 background: 'var(--gradient-primary)',
                 WebkitBackgroundClip: 'text',

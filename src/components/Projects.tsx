@@ -68,10 +68,10 @@ const getCategoryColor = (category: string) => {
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-20">
-      <div className="container mx-auto px-6">
+    <section id="projects" className="section-padding">
+      <div className="container mx-auto container-spacing">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4"
+          <h2 className="font-bold mb-6"
               style={{ 
                 background: 'var(--gradient-primary)',
                 WebkitBackgroundClip: 'text',

@@ -39,7 +39,7 @@ export default function Hero() {
     return () => clearTimeout(timeout);
   }, [currentText, isDeleting, currentIndex, texts]);
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden section-padding">
       {/* Subtle aurora background */}
       <div 
         className="absolute inset-0 opacity-40"
@@ -83,7 +83,7 @@ export default function Hero() {
         />
       </ParallaxSection>
       
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto container-spacing relative z-10">
         <div className="text-center max-w-4xl mx-auto">
           <div className="inline-block mb-6 px-4 py-2 rounded-full border" 
                style={{ 
@@ -93,7 +93,7 @@ export default function Hero() {
             <span style={{ color: 'hsl(var(--brand-1))' }} className="font-medium">👋 Hello, I'm</span>
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
+          <h1 className="font-bold mb-6 leading-tight"
               style={{ 
                 background: 'var(--gradient-primary)',
                 WebkitBackgroundClip: 'text',
@@ -106,7 +106,7 @@ export default function Hero() {
             </span>
           </h1>
           
-          <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto leading-relaxed"
+          <p className="text-lg md:text-xl mb-12 max-w-3xl mx-auto leading-relaxed"
              style={{ color: 'hsl(var(--text-1))' }}>
             Machine Learning-focused software engineer passionate about building intelligent systems that deliver real-world value. 
             Currently pursuing B.S. Computer Science (Honors) at ASU with a 4.0 GPA, creating AI-powered solutions from LLM fine-tuning to full-stack applications.

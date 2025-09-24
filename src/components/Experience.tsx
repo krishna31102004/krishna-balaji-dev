@@ -62,10 +62,10 @@ export default function Experience() {
   };
 
   return (
-    <section id="experience" className="py-20 bg-gradient-secondary/50">
-      <div className="container mx-auto px-6">
+    <section id="experience" className="section-padding bg-gradient-secondary/50">
+      <div className="container mx-auto container-spacing">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
+          <h2 className="font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent">
             Experience
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -80,44 +80,44 @@ export default function Experience() {
               className="experience-card group"
             >
               <CardHeader className="relative z-10 p-6">
-                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden bg-background/20 backdrop-blur-sm flex items-center justify-center p-2 border border-white/10 group-hover:scale-105 transition-transform duration-200">
-                      <img 
-                        src={exp.logo} 
-                        alt={`${exp.company} logo`}
-                        className="w-full h-full object-contain rounded-lg"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <CardTitle className="text-lg md:text-xl font-semibold mb-1" style={{ color: 'hsl(var(--text-1))' }}>
-                        {exp.title}
-                      </CardTitle>
-                      <div className="flex items-center gap-2">
-                        <Building2 className="h-4 w-4" style={{ color: 'hsl(var(--brand-1))' }} />
-                        <span className="font-medium text-sm" style={{ color: 'hsl(var(--text-2))' }}>{exp.company}</span>
+                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-14 h-14 rounded-xl overflow-hidden bg-background/20 backdrop-blur-sm flex items-center justify-center p-2 border border-white/10 group-hover:scale-105 transition-transform duration-200">
+                        <img 
+                          src={exp.logo} 
+                          alt={`${exp.company} logo`}
+                          className="w-full h-full object-contain rounded-lg"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <CardTitle className="text-xl font-semibold mb-2" style={{ color: 'hsl(var(--text-1))' }}>
+                          {exp.title}
+                        </CardTitle>
+                        <div className="flex items-center gap-2">
+                          <Building2 className="h-4 w-4" style={{ color: 'hsl(var(--brand-1))' }} />
+                          <span className="font-medium" style={{ color: 'hsl(var(--text-2))' }}>{exp.company}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
                   
-                  <div className="flex flex-col sm:flex-row gap-2 lg:text-right">
-                    <div className="info-pill">
-                      <CalendarDays className="h-3 w-3" style={{ color: 'hsl(var(--brand-1))' }} />
-                      <span className="text-xs font-medium">{exp.period}</span>
+                    <div className="flex flex-col sm:flex-row gap-3 lg:text-right">
+                      <div className="info-pill">
+                        <CalendarDays className="h-4 w-4" style={{ color: 'hsl(var(--brand-1))' }} />
+                        <span className="font-medium">{exp.period}</span>
+                      </div>
+                      <div className="info-pill">
+                        <MapPin className="h-4 w-4" style={{ color: 'hsl(var(--brand-2))' }} />
+                        <span className="font-medium">{exp.location}</span>
+                      </div>
                     </div>
-                    <div className="info-pill">
-                      <MapPin className="h-3 w-3" style={{ color: 'hsl(var(--brand-2))' }} />
-                      <span className="text-xs font-medium">{exp.location}</span>
-                    </div>
-                  </div>
                 </div>
               </CardHeader>
               
-              <CardContent className="relative z-10 px-6 pb-6">
-                <div className="mb-6">
-                  <ul className="space-y-3 experience-bullets">
+              <CardContent className="relative z-10 px-6 pb-8">
+                <div className="mb-8">
+                  <ul className="space-y-4 experience-bullets">
                     {exp.description.slice(0, expandedCards[index] ? exp.description.length : 2).map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-3 leading-relaxed text-sm">
+                      <li key={idx} className="flex items-start gap-3 leading-relaxed">
                         <div 
                           className="w-2 h-2 rounded-full mt-2 flex-shrink-0 transition-transform duration-200" 
                           style={{ 
@@ -127,10 +127,9 @@ export default function Experience() {
                         />
                         <span 
                           dangerouslySetInnerHTML={{ __html: renderDescription(item) }}
-                          className="[&>strong]:font-semibold"
+                          className="[&>strong]:font-semibold [&>strong]:text-current"
                           style={{ 
-                            color: 'hsl(var(--text-1))',
-                            ['--strong-color' as any]: 'hsl(var(--text-1))'
+                            color: 'hsl(var(--text-1))'
                           }}
                         />
                       </li>
@@ -142,7 +141,7 @@ export default function Experience() {
                       variant="ghost"
                       size="sm"
                       onClick={() => toggleExpanded(index)}
-                      className="mt-3 h-auto p-2 text-xs hover:scale-105 transition-all duration-150"
+                      className="mt-4 h-auto p-3 text-sm hover:scale-105 transition-all duration-150 focus:scale-105"
                       style={{ 
                         color: 'hsl(var(--brand-1))',
                         ['--hover-bg' as any]: 'hsl(var(--brand-1) / 0.1)'
@@ -150,12 +149,12 @@ export default function Experience() {
                     >
                       {expandedCards[index] ? (
                         <>
-                          <ChevronUp className="w-3 h-3 mr-1" />
+                          <ChevronUp className="w-4 h-4 mr-2" />
                           Show Less
                         </>
                       ) : (
                         <>
-                          <ChevronDown className="w-3 h-3 mr-1" />
+                          <ChevronDown className="w-4 h-4 mr-2" />
                           Show More
                         </>
                       )}
@@ -163,7 +162,7 @@ export default function Experience() {
                   )}
                 </div>
                 
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-3">
                   {exp.skills.map((skill, skillIndex) => (
                     <Badge 
                       key={skill} 

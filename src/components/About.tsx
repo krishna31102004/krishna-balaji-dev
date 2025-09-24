@@ -4,10 +4,10 @@ import { GraduationCap, Award, MapPin } from "lucide-react";
 
 export default function About() {
   return (
-    <section id="about" className="py-20 relative">
-      <div className="container mx-auto px-6">
+    <section id="about" className="section-padding relative">
+      <div className="container mx-auto container-spacing">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4"
+          <h2 className="font-bold mb-6"
               style={{ 
                 background: 'var(--gradient-primary)',
                 WebkitBackgroundClip: 'text',
@@ -16,24 +16,24 @@ export default function About() {
               }}>
             About Me
           </h2>
-          <div className="max-w-4xl mx-auto space-y-6">
+          <div className="max-w-4xl mx-auto space-y-8">
             <p className="text-lg leading-relaxed" style={{ color: 'hsl(var(--text-1))' }}>
-              I'm Krishna Balaji (KB), a **Machine Learning–focused** software engineer passionate about building intelligent systems that deliver real-world value. My recent projects include **AI-Powered Job Matcher**, a platform combining FastAPI, React, and LLM embeddings to match candidates with roles; **Pennywise AI**, a **fintech** dashboard that integrates Plaid APIs and AI-powered insights for smarter financial decisions; and **Charity Donation Manager**, an offline-first iOS app in **SwiftUI** that helps users discover charities with location-aware features.
+              I'm Krishna Balaji (KB), a <strong style={{ color: 'hsl(var(--brand-1))' }}>Machine Learning–focused</strong> software engineer passionate about building intelligent systems that deliver real-world value. My recent projects include <strong>AI-Powered Job Matcher</strong>, a platform combining FastAPI, React, and LLM embeddings to match candidates with roles; <strong>Pennywise AI</strong>, a <strong style={{ color: 'hsl(var(--brand-2))' }}>fintech</strong> dashboard that integrates Plaid APIs and AI-powered insights for smarter financial decisions; and <strong>Charity Donation Manager</strong>, an offline-first iOS app in <strong>SwiftUI</strong> that helps users discover charities with location-aware features.
             </p>
             <p className="text-lg leading-relaxed" style={{ color: 'hsl(var(--text-1))' }}>
-              I'm pursuing a B.S. in Computer Science (Honors) at Arizona State University, where I maintain a **4.0 GPA** and have been recognized on the Dean's List for six consecutive semesters. My work spans **machine learning**, full-stack development, and applied AI research, with experience ranging from **LLM** fine-tuning to mobile app development.
+              I'm pursuing a B.S. in Computer Science (Honors) at Arizona State University, where I maintain a <strong style={{ color: 'hsl(var(--brand-1))' }}>4.0 GPA</strong> and have been recognized on the Dean's List for six consecutive semesters. My work spans <strong>machine learning</strong>, full-stack development, and applied AI research, with experience ranging from <strong style={{ color: 'hsl(var(--brand-2))' }}>LLM</strong> fine-tuning to mobile app development.
             </p>
             <p className="text-lg leading-relaxed" style={{ color: 'hsl(var(--text-1))' }}>
-              Beyond academics, I delivered a **TEDx Talk** on{" "}
+              Beyond academics, I delivered a <strong style={{ color: 'hsl(var(--brand-1))' }}>TEDx Talk</strong> on{" "}
               <a 
                 href="https://www.ted.com/talks/krishna_balaji_life_as_an_introvert" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="underline transition-colors hover:opacity-80"
+                className="underline transition-colors hover:opacity-80 focus:opacity-80"
                 style={{ color: 'hsl(var(--brand-1))' }}
               >
                 <em>Life as an Introvert</em>
-              </a>, and earned the International Award for Young People (Bronze). I love analyzing **FPL analytics** and tinkering with side projects that often turn into surprisingly useful tools.
+              </a>, and earned the International Award for Young People (Bronze). I love analyzing <strong style={{ color: 'hsl(var(--brand-2))' }}>FPL analytics</strong> and tinkering with side projects that often turn into surprisingly useful tools.
             </p>
           </div>
         </div>
