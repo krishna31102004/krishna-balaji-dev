@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { CalendarDays, MapPin, Building2, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import quantiphiLogo from "@/assets/quantiphi-logo.png";
+import circleOooLogo from "@/assets/Circle-ooo-image.png";
+import barrettLogo from "@/assets/barrett-honors-college.jpeg";
 
 const experiences = [
   {
@@ -16,11 +18,11 @@ const experiences = [
       "Integrated and tested **LLM-based tools** in production, improving task execution with higher **accuracy** and **scalability**."
     ],
     skills: ["Next.js", "AI Agents", "LLMs", "Automation", "Workflow Systems", "Event Tech"],
-    logo: null
+    logo: circleOooLogo
   },
   {
     title: "Applied ML Research Intern",
-    company: "Arizona State University",
+    company: "Arizona State University (Barrett, The Honors College)",
     location: "Tempe, AZ",
     period: "Aug 2025 – Present",
     description: [
@@ -28,7 +30,7 @@ const experiences = [
       "Implemented **Random Forest, XGBoost, and Neural Networks**; optimized with **MAE** and **R²**; applied **SHAP** for explainability."
     ],
     skills: ["Python", "scikit-learn", "XGBoost", "Neural Networks", "Pandas", "APIs", "SHAP", "Model Evaluation"],
-    logo: null
+    logo: barrettLogo
   },
   {
     title: "Machine Learning Engineer Intern",
@@ -75,28 +77,45 @@ export default function Experience() {
           {experiences.map((exp, index) => (
             <Card 
               key={index} 
-              className="relative bg-card/80 backdrop-blur-sm border-l-4 border-l-primary hover:border-l-accent transition-all duration-300 group overflow-hidden hover:shadow-[0_8px_32px_rgba(124,92,255,0.12)]"
+              className="group relative bg-card/60 backdrop-blur-md border border-border/40 rounded-[1.25rem] hover:border-primary/40 transition-all duration-300 overflow-hidden"
+              style={{
+                background: 'rgba(20, 20, 30, 0.6)',
+                backdropFilter: 'blur(12px)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+              }}
             >
+              {/* Animated gradient border */}
               <div 
-                className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="absolute inset-0 rounded-[1.25rem] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary)))',
+                  backgroundSize: '200% 100%',
+                  animation: 'gradientShift 3s ease-in-out infinite',
+                  padding: '2px',
+                  mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                  maskComposite: 'xor',
+                }}
               />
               
-              <CardHeader className="relative z-10">
+              {/* Glow effect */}
+              <div 
+                className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[1.25rem]"
+              />
+              
+              <CardHeader className="relative z-10 p-6">
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                   <div className="flex items-start gap-4">
-                    {exp.logo ? (
-                      <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-background/50 flex items-center justify-center p-2 border border-primary/20">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden bg-background/20 backdrop-blur-sm flex items-center justify-center p-2 border border-primary/20 group-hover:scale-105 transition-transform duration-300">
+                      {exp.logo ? (
                         <img 
                           src={exp.logo} 
                           alt={`${exp.company} logo`}
-                          className="w-full h-full object-contain"
+                          className="w-full h-full object-contain rounded-lg"
                         />
-                      </div>
-                    ) : (
-                      <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-primary flex items-center justify-center">
-                        <Building2 className="w-6 h-6 text-white" />
-                      </div>
-                    )}
+                      ) : (
+                        <Building2 className="w-6 h-6 text-primary" />
+                      )}
+                    </div>
                     <div className="flex-1">
                       <CardTitle className="text-lg md:text-xl font-semibold text-foreground group-hover:text-primary transition-colors mb-1">
                         {exp.title}
@@ -109,11 +128,11 @@ export default function Experience() {
                   </div>
                   
                   <div className="flex flex-col sm:flex-row gap-2 lg:text-right">
-                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
+                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm">
                       <CalendarDays className="h-3 w-3 text-primary" />
                       <span className="text-xs font-medium text-primary">{exp.period}</span>
                     </div>
-                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20">
+                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20 backdrop-blur-sm">
                       <MapPin className="h-3 w-3 text-accent" />
                       <span className="text-xs font-medium text-accent">{exp.location}</span>
                     </div>
@@ -121,12 +140,15 @@ export default function Experience() {
                 </div>
               </CardHeader>
               
-              <CardContent className="relative z-10">
+              <CardContent className="relative z-10 px-6 pb-6">
                 <div className="mb-6">
                   <ul className="space-y-3">
                     {exp.description.slice(0, expandedCards[index] ? exp.description.length : 2).map((item, idx) => (
                       <li key={idx} className="flex items-start gap-3 text-muted-foreground leading-relaxed text-sm">
-                        <div className="w-1.5 h-1.5 bg-gradient-primary rounded-full mt-2 flex-shrink-0" />
+                        <div 
+                          className="w-2 h-2 bg-gradient-primary rounded-full mt-2 flex-shrink-0 animate-pulse group-hover:scale-110 transition-transform duration-200" 
+                          style={{ animationDuration: `${2 + idx * 0.3}s` }}
+                        />
                         <span 
                           dangerouslySetInnerHTML={{ __html: renderDescription(item) }}
                           className="[&>strong]:text-foreground [&>strong]:font-semibold"
@@ -140,7 +162,7 @@ export default function Experience() {
                       variant="ghost"
                       size="sm"
                       onClick={() => toggleExpanded(index)}
-                      className="mt-3 h-auto p-2 text-xs text-primary hover:text-primary hover:bg-primary/5 transition-all duration-200"
+                      className="mt-3 h-auto p-2 text-xs text-primary hover:text-primary hover:bg-primary/5 transition-all duration-200 hover:scale-105"
                     >
                       {expandedCards[index] ? (
                         <>
@@ -157,12 +179,16 @@ export default function Experience() {
                   )}
                 </div>
                 
-                <div className="flex flex-wrap gap-1.5">
-                  {exp.skills.map((skill) => (
+                <div className="flex flex-wrap gap-2">
+                  {exp.skills.map((skill, skillIndex) => (
                     <Badge 
                       key={skill} 
                       variant="secondary" 
-                      className="bg-gradient-to-r from-primary/10 to-accent/10 text-primary border-primary/20 text-xs px-2 py-1 rounded-full font-medium hover:scale-105 transition-transform duration-200"
+                      className="relative bg-gradient-to-r from-primary/10 to-accent/10 text-primary border-primary/20 text-xs px-3 py-1.5 rounded-full font-medium hover:scale-105 hover:-translate-y-0.5 transition-all duration-200 backdrop-blur-sm"
+                      style={{
+                        background: `hsl(var(--primary) / 0.${2 + skillIndex % 3})`,
+                        transitionDelay: `${skillIndex * 50}ms`
+                      }}
                     >
                       {skill}
                     </Badge>
