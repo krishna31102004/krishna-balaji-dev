@@ -118,7 +118,8 @@ export default function Hero() {
                 size="lg" 
                 variant="gradient"
                 style={{ 
-                  background: 'linear-gradient(90deg, #7C5CFF, #00E5FF)'
+                  background: 'var(--gradient-primary)',
+                  color: 'hsl(var(--bg-0))'
                 }}
               >
                 <Mail className="mr-2 h-5 w-5" />
@@ -127,8 +128,14 @@ export default function Hero() {
             </a>
             <Button 
               asChild 
-              variant="gradient-outline" 
-              size="lg"
+              variant="outline" 
+              size="lg" 
+              className="transition-all duration-200"
+              style={{
+                borderColor: 'hsl(var(--brand-1))',
+                color: 'hsl(var(--brand-1))',
+                backgroundColor: 'transparent'
+              }}
             >
               <a
                 href="/resume.pdf"
