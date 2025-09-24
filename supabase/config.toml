@@ -1,4 +1,0 @@
-project_id = "dqgihgxkajjpmkuoobwx"
-
-[functions.ask-kb]
-verify_jwt = false
