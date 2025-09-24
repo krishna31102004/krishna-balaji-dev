@@ -112,10 +112,10 @@ export default function Contact() {
               
               <a href="mailto:krishna311004@gmail.com" className="w-full">
                 <Button 
-                  className="w-full transition-all duration-200 hover:scale-[1.02]"
+                  variant="gradient"
+                  className="w-full"
                   style={{ 
-                    background: 'var(--gradient-primary)',
-                    color: 'hsl(var(--bg-0))'
+                    background: 'linear-gradient(90deg, #7C5CFF, #00E5FF)'
                   }}
                 >
                   <Mail className="mr-2 h-5 w-5" />
