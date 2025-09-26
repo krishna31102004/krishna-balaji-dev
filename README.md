@@ -11,7 +11,7 @@ Machine Learning-focused software engineer passionate about building intelligent
 
 ## 👋 About Me
 
-I'm a Computer Science (Honors) student at Arizona State University Barrett Honors College with a 4.0 GPA, specializing in Machine Learning and AI-driven applications. I excel at building end-to-end solutions from data processing and model training to production-ready web applications using modern frameworks.
+I'm a Computer Science (Honors) student at Barrett, The Honors College at Arizona State University with a 4.0 GPA, specializing in Machine Learning and AI-driven applications. I excel at building end-to-end solutions from data processing and model training to production-ready web applications using modern frameworks.
 
 **Current Focus:** Creating intelligent systems that solve real-world problems through LLM fine-tuning, API optimization, and full-stack development.
 
@@ -29,7 +29,7 @@ I'm a Computer Science (Honors) student at Arizona State University Barrett Hono
 ### Machine Learning Engineer Intern | **Quantiphi**
 *Advanced AI solutions and enterprise ML implementations*
 
-### Research Intern | **ASU Barrett Honors College**  
+### Applied ML Research Intern | **ASU Barrett Honors College**  
 *Academic research and computational projects*
 
 ### Software Engineer Intern | **Circle.ooo**  
