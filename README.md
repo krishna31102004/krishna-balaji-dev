@@ -4,7 +4,7 @@ Machine Learning-focused software engineer passionate about building intelligent
 
 🌐 **Live Portfolio:** [krishnabalaji.dev](https://krishnabalaji.dev)  
 📧 **Contact:** [krishna311004@gmail.com](mailto:krishna311004@gmail.com)  
-💼 **LinkedIn:** [linkedin.com/in/krishna-balaji-53785a257](https://linkedin.com/in/krishna-balaji-53785a257)  
+💼 **LinkedIn:** [linkedin.com/in/krishnabalaji](http://www.linkedin.com/in/krishnabalaji)  
 👨‍💻 **GitHub:** [github.com/krishna31102004](https://github.com/krishna31102004)
 
 ---
@@ -29,10 +29,10 @@ I'm a Computer Science (Honors) student at Arizona State University Barrett Hono
 ### Machine Learning Engineer Intern | **Quantiphi**
 *Advanced AI solutions and enterprise ML implementations*
 
-### Research Assistant | **ASU Barrett Honors College**  
+### Research Intern | **ASU Barrett Honors College**  
 *Academic research and computational projects*
 
-### Software Developer | **Circle.ooo**  
+### Software Engineer Intern | **Circle.ooo**  
 *Full-stack development and startup environment experience*
 
 ## 🎯 Featured Projects
@@ -43,11 +43,11 @@ I'm a Computer Science (Honors) student at Arizona State University Barrett Hono
 - Optimized API performance to achieve sub-300ms response times
 - Implemented switchable embedding models for enhanced matching accuracy
 
-### [Fake News Detection API](https://github.com/krishna31102004/fake-news-detection)
-**DistilBERT • 99%+ Reported Accuracy • NLP**
-- Developed machine learning API for fake news classification
-- Implemented DistilBERT transformer model with 99%+ accuracy
-- Created scalable REST API for real-time news verification
+### [Pennywise AI — Personal Finance Tracker](https://pennywise-ai.vercel.app) | [GitHub](https://github.com/krishna31102004/pennywise-ai)
+**Next.js • Plaid Integration • AI Financial Insights**
+- Built production-ready finance tracker linking Plaid Sandbox accounts
+- Implemented secure transaction sync with encrypted tokens and KPI dashboards
+- Created AI-powered insights for spending analysis and financial runway calculations
 
 ### [Charity Donation Manager](https://github.com/krishna31102004/charity-donation-manager)
 **SwiftUI • iOS Development • Map Integration**
@@ -208,7 +208,7 @@ While this is a personal portfolio, contributions for improvements are welcome:
 
 - **Email:** [krishna311004@gmail.com](mailto:krishna311004@gmail.com)
 - **Phone:** (480) 234-1166
-- **LinkedIn:** [linkedin.com/in/krishna-balaji-53785a257](https://linkedin.com/in/krishna-balaji-53785a257)
+- **LinkedIn:** [linkedin.com/in/krishnabalaji](http://www.linkedin.com/in/krishnabalaji)
 - **GitHub:** [github.com/krishna31102004](https://github.com/krishna31102004)
 - **Website:** [krishnabalaji.dev](https://krishnabalaji.dev)
 

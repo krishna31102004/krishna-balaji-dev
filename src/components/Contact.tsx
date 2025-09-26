@@ -92,7 +92,7 @@ export default function Contact() {
                   </div>
                 </a>
                 
-                <a href="https://linkedin.com/in/krishna-balaji-53785a257" target="_blank" rel="noopener noreferrer"
+                <a href="http://www.linkedin.com/in/krishnabalaji" target="_blank" rel="noopener noreferrer"
                    className="flex items-center gap-4 p-4 rounded-lg transition-colors group"
                    style={{ ['--hover-bg' as any]: 'hsl(var(--brand-1) / 0.05)' }}>
                   <Linkedin className="h-6 w-6 transition-colors" 

@@ -9,9 +9,9 @@
       "outcome": "<300ms API latency; switchable embeddings; FastAPI+React"
     },
     {
-      "name": "Fake News Detection API",
-      "links": { "code":"https://github.com/krishna31102004/fake-news-detection" },
-      "outcome": "DistilBERT; 99%+ reported accuracy"
+      "name": "Pennywise AI",
+      "links": { "code":"https://github.com/krishna31102004/pennywise-ai", "demo":"https://pennywise-ai.vercel.app" },
+      "outcome": "Next.js + Plaid; AI financial insights with secure transaction sync"
     },
     {
       "name": "Charity Donation Manager (iOS)",

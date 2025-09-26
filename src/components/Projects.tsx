@@ -19,14 +19,6 @@ const projects = [
     image: aiJobMatcherImage
   },
   {
-    title: "Fake News Detection API",
-    period: "Feb 2025 – Mar 2025",
-    description: "Created a Flask API with a fine-tuned DistilBERT model achieving 99%+ accuracy on diverse news datasets. Deployed on Render with robust caching, health-check endpoints, and a Bootstrap-based frontend.",
-    skills: ["Flask", "DistilBERT", "Hugging Face", "Render", "Bootstrap"],
-    category: "ML/AI",
-    image: fakeNewsDetectionImage
-  },
-  {
     title: "Charity Donation Manager",
     period: "Aug 2024 – Dec 2024",
     description: "Developed a donation app with real-time location tracking and API-based charity recommendations. Integrated Firebase authentication and live data sync for scalable backend handling.",

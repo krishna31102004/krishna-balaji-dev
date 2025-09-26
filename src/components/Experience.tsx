@@ -9,7 +9,7 @@ import barrettLogo from "@/assets/barrett-honors-college.jpeg";
 
 const experiences = [
   {
-    title: "Software Engineering Intern",
+    title: "Software Engineer Intern",
     company: "Circle.ooo",
     location: "Remote – Houston, TX",
     period: "Aug 2025 – Present",
@@ -21,7 +21,7 @@ const experiences = [
     logo: circleOooLogo
   },
   {
-    title: "Applied ML Research Intern",
+    title: "Research Intern",
     company: "Arizona State University (Barrett, The Honors College)",
     location: "Tempe, AZ",
     period: "Aug 2025 – Present",
