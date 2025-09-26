@@ -1,40 +1,80 @@
 # Krishna Balaji - Personal Portfolio
 
-A modern, responsive personal portfolio website showcasing my projects, experience, and skills as a Computer Science student and Machine Learning Engineer.
+Machine Learning-focused software engineer passionate about building intelligent systems that deliver real-world value. Computer Science (Honors) student at Arizona State University with a 4.0 GPA.
 
-🌐 **Live Website:** [krishnabalaji.dev](https://krishnabalaji.dev)
+🌐 **Live Portfolio:** [krishnabalaji.dev](https://krishnabalaji.dev)  
+📧 **Contact:** [krishna311004@gmail.com](mailto:krishna311004@gmail.com)  
+💼 **LinkedIn:** [linkedin.com/in/krishna-balaji-53785a257](https://linkedin.com/in/krishna-balaji-53785a257)  
+👨‍💻 **GitHub:** [github.com/krishna31102004](https://github.com/krishna31102004)
 
-## ✨ Features
+---
 
-- **Responsive Design** - Optimized for desktop, tablet, and mobile devices
-- **Interactive Sections** - Smooth scrolling navigation between portfolio sections
-- **Project Showcase** - Detailed project cards with live demos and GitHub links
-- **Experience Timeline** - Professional experience with company logos and descriptions
-- **AI-Powered Chat** - Integrated knowledge base chat using Supabase Edge Functions
-- **Contact Integration** - Direct email links and social media connections
-- **Modern UI/UX** - Built with Tailwind CSS and shadcn/ui components
-- **SEO Optimized** - Meta tags and semantic HTML for better search visibility
-- **Performance Focused** - Optimized loading with Vite and modern web practices
+## 👋 About Me
+
+I'm a Computer Science (Honors) student at Arizona State University Barrett Honors College with a 4.0 GPA, specializing in Machine Learning and AI-driven applications. I excel at building end-to-end solutions from data processing and model training to production-ready web applications using modern frameworks.
+
+**Current Focus:** Creating intelligent systems that solve real-world problems through LLM fine-tuning, API optimization, and full-stack development.
+
+## 🚀 Core Competencies
+
+### Programming & Development
+- **Languages:** Python, TypeScript, JavaScript, Swift, C++, Java
+- **ML & AI:** PyTorch, TensorFlow, OpenAI API, LangChain, DistilBERT, Embeddings
+- **Frontend:** React, Next.js, SwiftUI, Tailwind CSS, shadcn/ui
+- **Backend:** FastAPI, Flask, Node.js, Supabase, Firebase
+- **Tools:** Docker, Git, Vite, Vercel, REST APIs
+
+## 💼 Professional Experience
+
+### Machine Learning Engineer Intern | **Quantiphi**
+*Advanced AI solutions and enterprise ML implementations*
+
+### Research Assistant | **ASU Barrett Honors College**  
+*Academic research and computational projects*
+
+### Software Developer | **Circle.ooo**  
+*Full-stack development and startup environment experience*
+
+## 🎯 Featured Projects
+
+### [AI-Powered Job Matcher](https://ai-job-matcher-beige.vercel.app) | [GitHub](https://github.com/krishna31102004/ai-job-matcher)
+**FastAPI + React • <300ms API Latency • Switchable Embeddings**
+- Built intelligent job matching system using advanced embedding techniques
+- Optimized API performance to achieve sub-300ms response times
+- Implemented switchable embedding models for enhanced matching accuracy
+
+### [Fake News Detection API](https://github.com/krishna31102004/fake-news-detection)
+**DistilBERT • 99%+ Reported Accuracy • NLP**
+- Developed machine learning API for fake news classification
+- Implemented DistilBERT transformer model with 99%+ accuracy
+- Created scalable REST API for real-time news verification
+
+### [Charity Donation Manager](https://github.com/krishna31102004/charity-donation-manager)
+**SwiftUI • iOS Development • Map Integration**
+- Built native iOS app for charity discovery and donation management  
+- Integrated map-based charity discovery with location services
+- Implemented user favorites and payment flow simulation
+
+## 🏆 Leadership & Achievements
+
+### Academic Excellence
+- **4.0 GPA** - Computer Science (Honors), Arizona State University
+- **Barrett Honors College** - Select honors program admission
+- **TEDx Speaker** - Delivered presentation on technology and innovation
+- **IAYP Bronze Award Winner** - International Award for Young People
+
+### Technical Leadership
+- **Sports Analytics Enthusiast** - Fantasy Premier League (FPL) data analysis
+- **Open Source Contributor** - Active GitHub contributor with multiple repositories
 
 ## 🛠️ Tech Stack
 
-### Frontend
-- **React 18** - Modern React with TypeScript
-- **Vite** - Fast build tool and development server
-- **Tailwind CSS** - Utility-first CSS framework
-- **shadcn/ui** - High-quality UI components
-- **Lucide React** - Beautiful icon library
-- **React Router** - Client-side routing
+This portfolio is built with modern web technologies:
 
-### Backend & Services
-- **Supabase** - Backend-as-a-Service for database and edge functions
-- **Supabase Edge Functions** - Serverless functions for chat functionality
-- **TypeScript** - Type-safe development
-
-### Development & Deployment
-- **ESLint** - Code linting and formatting
-- **PostCSS** - CSS processing
-- **Vercel** - Deployment and hosting platform
+**Frontend:** React 18 + TypeScript + Vite + Tailwind CSS + shadcn/ui  
+**Backend:** Supabase (Database + Edge Functions)  
+**Deployment:** Vercel with custom domain  
+**Development:** ESLint + PostCSS + Modern toolchain
 
 ## 🚀 Getting Started
 
