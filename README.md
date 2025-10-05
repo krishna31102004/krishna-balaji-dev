@@ -29,7 +29,7 @@ I'm a Computer Science (Honors) student at Barrett, The Honors College at Arizon
 ### Machine Learning Engineer Intern | **Quantiphi**
 *Advanced AI solutions and enterprise ML implementations*
 
-### Applied ML Research Intern | **ASU Barrett Honors College**  
+### Applied ML Research Intern | **Barrett, The Honors College at ASU**  
 *Academic research and computational projects*
 
 ### Software Engineer Intern | **Circle.ooo**  
