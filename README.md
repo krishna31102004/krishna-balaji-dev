@@ -59,7 +59,7 @@ I'm a Computer Science (Honors) student at Barrett, The Honors College at Arizon
 
 ### Academic Excellence
 - **4.0 GPA** - Computer Science (Honors), Arizona State University
-- **Barrett Honors College** - Select honors program admission
+- **Barrett, The Honors College** - Select honors program admission
 - **TEDx Speaker** - Delivered presentation on technology and innovation
 - **IAYP Bronze Award Winner** - International Award for Young People
 
