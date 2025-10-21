@@ -88,8 +88,8 @@ This portfolio is built with modern web technologies:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/krishna31102004/portfolio.git
-   cd portfolio
+   git clone https://github.com/krishna31102004/krishna-balaji-dev.git
+   cd krishna-balaji-dev
    ```
 
 2. **Install dependencies**
