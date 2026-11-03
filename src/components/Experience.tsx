@@ -1,184 +1,56 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { CalendarDays, MapPin, Building2, ChevronDown, ChevronUp } from "lucide-react";
-import { useState } from "react";
-import quantiphiLogo from "@/assets/quantiphi-logo.png";
-import circleOooLogo from "@/assets/Circle-ooo-image.png";
-import barrettLogo from "@/assets/barrett-honors-college.jpeg";
-
-const experiences = [
+const roles = [
   {
-    title: "Software Engineer Intern",
     company: "Circle.ooo",
-    location: "Remote – Houston, TX",
-    period: "Aug 2025 – Present",
-    description: [
-      "Engineered **AI-driven event registration agents** that automated multi-account workflows into a **single-tap system**.",
-      "Integrated and tested **LLM-based tools** in production, improving task execution with higher **accuracy** and **scalability**."
+    title: "Software Engineering Intern",
+    dates: "Sep 2025 – Apr 2026",
+    location: "Product engineering",
+    points: [
+      <>Implemented <strong>41 REST API endpoints</strong> across 9 Node.js / Express route modules.</>,
+      <>Designed a sponsorship recommendation engine with <strong>6 weighted compatibility factors</strong>.</>,
+      <>Connected workflows across 9 relational tables, messaging, proposal management, and Stripe checkout.</>,
     ],
-    skills: ["Next.js", "AI Agents", "LLMs", "Automation", "Workflow Systems", "Event Tech"],
-    logo: circleOooLogo
   },
   {
-    title: "Research Intern",
-    company: "Arizona State University (Barrett, The Honors College)",
-    location: "Tempe, AZ",
-    period: "Aug 2025 – Present",
-    description: [
-      "Built supervised **ML pipelines** using **FPL APIs** and football datasets to predict player points.",
-      "Implemented **Random Forest, XGBoost, and Neural Networks**; optimized with **MAE** and **R²**; applied **SHAP** for explainability."
+    company: "Arizona State University",
+    title: "Research Software Engineer Intern",
+    dates: "Sep 2025 – Apr 2026",
+    location: "Applied machine learning",
+    points: [
+      <>Built ML pipelines over <strong>106,881 player-gameweek observations</strong>, reaching 0.70 mean Spearman correlation with XGBoost, LightGBM, and walk-forward validation.</>,
+      <>Developed a rank-based signal evaluated against <strong>11M+ historical selection records</strong>.</>,
+      <>Built a PuLP optimization system that ranked in the <strong>top 0.9% on a blind holdout</strong>.</>,
     ],
-    skills: ["Python", "scikit-learn", "XGBoost", "Neural Networks", "Pandas", "APIs", "SHAP", "Model Evaluation"],
-    logo: barrettLogo
   },
   {
-    title: "Machine Learning Engineer Intern",
     company: "Quantiphi",
-    location: "Mumbai, India",
-    period: "May 2025 – Aug 2025",
-    description: [
-      "Automated data processing with **Python pipelines**, cleaning and mapping claim outputs to a structured schema; **reduced manual review time by 80%**.",
-      "Optimized **LLM prompt engineering** to extract structured fields from unstructured insurance claims, **improving overall accuracy** across diverse formats."
+    title: "Machine Learning Engineer Intern",
+    dates: "May 2025 – Aug 2025",
+    location: "Claims automation · GCP",
+    points: [
+      <>Built Python ETL pipelines for <strong>50,000+ claims per month</strong>, reducing manual review time by 80%.</>,
+      <>Raised document extraction accuracy from <strong>72% to 90%</strong>.</>,
+      <>Deployed GCP microservices supporting a <strong>25% reduction</strong> in claim approval cycle time.</>,
     ],
-    skills: ["LLMs", "Prompt Engineering", "Python", "Data Processing", "Schema Mapping", "Insurance"],
-    logo: quantiphiLogo
-  }
+  },
 ];
 
 export default function Experience() {
-  const [expandedCards, setExpandedCards] = useState<{ [key: number]: boolean }>({});
-
-  const toggleExpanded = (index: number) => {
-    setExpandedCards(prev => ({
-      ...prev,
-      [index]: !prev[index]
-    }));
-  };
-
-  const renderDescription = (description: string) => {
-    // Convert **text** to bold formatting
-    return description.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-  };
-
   return (
-    <section id="experience" className="section-padding bg-gradient-secondary/50">
-      <div className="container mx-auto container-spacing">
-        <div className="text-center mb-16">
-          <h2 className="font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent">
-            Experience
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            My professional journey in machine learning, AI, and software engineering
-          </p>
-        </div>
-        
-        <div className="space-y-8 max-w-4xl mx-auto">
-          {experiences.map((exp, index) => (
-            <Card 
-              key={index} 
-              className="experience-card group"
-            >
-              <CardHeader className="relative z-10 p-6">
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-                    <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0 w-14 h-14 rounded-xl overflow-hidden bg-background/20 backdrop-blur-sm flex items-center justify-center p-2 border border-white/10 group-hover:scale-105 transition-transform duration-200">
-                        <img 
-                          src={exp.logo} 
-                          alt={`${exp.company} logo`}
-                          className="w-full h-full object-contain rounded-lg"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <CardTitle className="text-xl font-semibold mb-2" style={{ color: 'hsl(var(--text-1))' }}>
-                          {exp.title}
-                        </CardTitle>
-                        <div className="flex items-center gap-2">
-                          <Building2 className="h-4 w-4" style={{ color: 'hsl(var(--brand-1))' }} />
-                          <span className="font-medium" style={{ color: 'hsl(var(--text-2))' }}>{exp.company}</span>
-                        </div>
-                      </div>
-                    </div>
-                  
-                    <div className="flex flex-col sm:flex-row gap-3 lg:text-right">
-                      <div className="info-pill">
-                        <CalendarDays className="h-4 w-4" style={{ color: 'hsl(var(--brand-1))' }} />
-                        <span className="font-medium">{exp.period}</span>
-                      </div>
-                      <div className="info-pill">
-                        <MapPin className="h-4 w-4" style={{ color: 'hsl(var(--brand-2))' }} />
-                        <span className="font-medium">{exp.location}</span>
-                      </div>
-                    </div>
-                </div>
-              </CardHeader>
-              
-              <CardContent className="relative z-10 px-6 pb-8">
-                <div className="mb-8">
-                  <ul className="space-y-4 experience-bullets">
-                    {exp.description.slice(0, expandedCards[index] ? exp.description.length : 2).map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-3 leading-relaxed">
-                        <div 
-                          className="w-2 h-2 rounded-full mt-2 flex-shrink-0 transition-transform duration-200" 
-                          style={{ 
-                            background: 'var(--gradient-primary)',
-                            animation: `pulse ${2 + idx * 0.3}s ease-in-out infinite`
-                          }}
-                        />
-                        <span 
-                          dangerouslySetInnerHTML={{ __html: renderDescription(item) }}
-                          className="[&>strong]:font-semibold [&>strong]:text-current"
-                          style={{ 
-                            color: 'hsl(var(--text-1))'
-                          }}
-                        />
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  {exp.description.length > 2 && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => toggleExpanded(index)}
-                      className="mt-4 h-auto p-3 text-sm hover:scale-105 transition-all duration-150 focus:scale-105"
-                      style={{ 
-                        color: 'hsl(var(--brand-1))',
-                        ['--hover-bg' as any]: 'hsl(var(--brand-1) / 0.1)'
-                      }}
-                    >
-                      {expandedCards[index] ? (
-                        <>
-                          <ChevronUp className="w-4 h-4 mr-2" />
-                          Show Less
-                        </>
-                      ) : (
-                        <>
-                          <ChevronDown className="w-4 h-4 mr-2" />
-                          Show More
-                        </>
-                      )}
-                    </Button>
-                  )}
-                </div>
-                
-                <div className="flex flex-wrap gap-3">
-                  {exp.skills.map((skill, skillIndex) => (
-                    <Badge 
-                      key={skill} 
-                      className="skill-tag"
-                      style={{
-                        transitionDelay: `${skillIndex * 30}ms`
-                      }}
-                    >
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+    <section className="section-wrap content-section" id="experience" aria-labelledby="experience-title">
+      <div className="section-heading">
+        <p className="section-index">Career history</p>
+        <div><h2 id="experience-title">Where I’ve contributed</h2><p>Engineering work across product, research, and applied machine learning.</p></div>
+      </div>
+      <div className="experience-list">
+        {roles.map((role) => (
+          <article className="experience-row" key={role.company}>
+            <div className="experience-date"><span>{role.dates}</span><span className="experience-location">{role.location}</span></div>
+            <div className="experience-detail">
+              <div className="experience-titleline"><div><h3>{role.company}</h3><p>{role.title}</p></div></div>
+              <ul>{role.points.map((point, index) => <li key={index}>{point}</li>)}</ul>
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   );

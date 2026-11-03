@@ -1,183 +1,71 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Github, ExternalLink, Calendar } from "lucide-react";
-import aiJobMatcherImage from "@/assets/ai-job-matcher.jpg";
-import fakeNewsDetectionImage from "@/assets/fake-news-detection.jpg";
-import charityDonationImage from "@/assets/charity-donation-manager.jpg";
-import pennywiseAiImage from "@/assets/pennywise-ai.jpg";
+import { ArrowUpRight } from "lucide-react";
 
-const projects = [
-  {
-    title: "AI-Powered Job Matcher",
-    period: "Aug 2025 – Sep 2025",
-    description: "Production-ready FastAPI service that parses PDF/DOCX resumes and computes job-fit scores with TF-IDF cosine similarity. Includes LLM-powered suggestions with switchable embeddings (TF-IDF, Sentence-Transformers, OpenAI). React frontend on Vercel; secured backend on Render with Docker, CORS, health checks, and pytest CI/CD.",
-    skills: ["FastAPI", "React", "OpenAI", "Sentence-Transformers", "Docker", "Render", "Vercel", "Swagger/OpenAPI", "pytest"],
-    category: "ML/AI",
-    codeUrl: "https://github.com/krishna31102004/ai-job-matcher",
-    demoUrl: "https://ai-job-matcher-beige.vercel.app",
-    image: aiJobMatcherImage
-  },
-  {
-    title: "Charity Donation Manager",
-    period: "Aug 2024 – Dec 2024",
-    description: "Developed a donation app with real-time location tracking and API-based charity recommendations. Integrated Firebase authentication and live data sync for scalable backend handling.",
-    skills: ["SwiftUI", "Firebase", "MVVM", "Location APIs"],
-    category: "Mobile App",
-    codeUrl: "https://github.com/krishna31102004/charity-donation-manager",
-    image: charityDonationImage
-  },
-  {
-    title: "Pennywise AI — Personal Finance Tracker with AI Insights",
-    period: "Aug 2025 – Sep 2025",
-    description: "Production-ready Next.js app that links Plaid Sandbox accounts, securely syncs transactions/balances, and surfaces KPIs (runway, burn, MTD spend) with interactive charts. Includes per-visitor sessions, a resilient `/jobs/refresh` pipeline (optional webhooks), encrypted Plaid tokens, NL \"Ask\" and AI Insights, and idempotent 6-month demo seeding — deployed on Vercel.",
-    skills: ["Next.js", "TypeScript", "Prisma", "Neon Postgres", "Plaid", "OpenAI", "Recharts", "Vercel", "pgvector (optional)"],
-    category: "FinTech/AI",
-    codeUrl: "https://github.com/krishna31102004/pennywise-ai",
-    demoUrl: "https://pennywise-ai.vercel.app",
-    image: pennywiseAiImage
-  },
-  {
-    title: "Jirani Digital Library Software",
-    period: "Aug 2023 – Dec 2023",
-    description: "Developed the front-end for an SQL-based knowledge hub aiding underprivileged learners in Kenya. Pitched and secured $3,000 in funding through a competition based on usability and impact.",
-    skills: ["SQL", "UX Design", "Front-End Dev"],
-    category: "Social Impact",
-    highlight: "$3,000 funding secured"
-  }
-];
+const browserStack = ["Reliability testing", "Browser agents", "CI regression"];
+const glassboxStack = ["FastAPI", "Redis", "LangGraph", "PostgreSQL", "Prometheus", "Slack"];
+const atlasStack = ["FastAPI", "Redis", "Polars", "Parquet"];
 
-const getCategoryColor = (category: string) => {
-  const colors = {
-    "ML/AI": "bg-blue-500/10 text-blue-400 border-blue-500/20",
-    "Mobile App": "bg-green-500/10 text-green-400 border-green-500/20",
-    "Web Extension": "bg-purple-500/10 text-purple-400 border-purple-500/20",
-    "Social Impact": "bg-orange-500/10 text-orange-400 border-orange-500/20",
-    "FinTech/AI": "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
-  };
-  return colors[category as keyof typeof colors] || "bg-primary/10 text-primary border-primary/20";
-};
+function Stack({ items }: { items: string[] }) {
+  return <ul className="stack-list" aria-label="Technologies and focus">{items.map((item) => <li key={item}>{item}</li>)}</ul>;
+}
+
+function ProjectLink({ href }: { href: string }) {
+  return <a className="project-link" href={href} target="_blank" rel="noreferrer">View source <ArrowUpRight size={15} aria-hidden="true" /></a>;
+}
 
 export default function Projects() {
   return (
-    <section id="projects" className="section-padding">
-      <div className="container mx-auto container-spacing">
-        <div className="text-center mb-16">
-          <h2 className="font-bold mb-6"
-              style={{ 
-                background: 'var(--gradient-primary)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}>
-            Projects
-          </h2>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: 'hsl(var(--text-1))' }}>
-            A showcase of my work in machine learning, web development, and impactful applications
-          </p>
+    <section className="work-section" id="projects" aria-labelledby="projects-title">
+      <div className="section-wrap content-section">
+        <div className="section-heading">
+          <p className="section-index">Selected work</p>
+          <div><h2 id="projects-title">Systems built to be trusted</h2><p>Three projects at the intersection of reliability, intelligent operations, and fast data access.</p></div>
         </div>
-        
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {projects.map((project, index) => (
-            <Card key={index} className="experience-card group h-full overflow-hidden">
-              {project.image && (
-                <div className="aspect-video overflow-hidden">
-                  <img 
-                    src={project.image} 
-                    alt={`${project.title} - ${project.description.substring(0, 100)}...`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-              )}
-              <CardHeader>
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Badge className={`skill-tag ${getCategoryColor(project.category)}`}>
-                        {project.category}
-                      </Badge>
-                      {project.highlight && (
-                        <Badge className="skill-tag border-primary/20" style={{ color: 'hsl(var(--brand-1))' }}>
-                          {project.highlight}
-                        </Badge>
-                      )}
-                    </div>
-                    <CardTitle className="text-xl font-semibold transition-colors" 
-                              style={{ color: 'hsl(var(--text-1))' }}>
-                      {project.title}
-                    </CardTitle>
-                    <div className="flex items-center gap-2 mt-2" style={{ color: 'hsl(var(--text-2))' }}>
-                      <Calendar className="h-4 w-4" />
-                      <span className="text-sm">{project.period}</span>
-                    </div>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <p className="leading-relaxed mb-6" style={{ color: 'hsl(var(--text-1))' }}>
-                  {project.description}
-                </p>
-                
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.skills.map((skill) => (
-                    <Badge key={skill} className="skill-tag">
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-                
-                <div className="flex gap-3">
-                  {project.codeUrl ? (
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="transition-all duration-150 hover:scale-105"
-                      style={{
-                        borderColor: 'hsl(var(--brand-1))',
-                        color: 'hsl(var(--brand-1))',
-                        backgroundColor: 'transparent'
-                      }}
-                      asChild
-                    >
-                      <a href={project.codeUrl} target="_blank" rel="noopener noreferrer">
-                        <Github className="mr-2 h-4 w-4" />
-                        Code
-                      </a>
-                    </Button>
-                  ) : (
-                    <Button variant="outline" size="sm" className="opacity-50 cursor-not-allowed" disabled>
-                      <Github className="mr-2 h-4 w-4" />
-                      Code
-                    </Button>
-                  )}
-                  {project.demoUrl ? (
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="transition-all duration-150 hover:scale-105"
-                      style={{
-                        borderColor: 'hsl(var(--brand-2))',
-                        color: 'hsl(var(--brand-2))',
-                        backgroundColor: 'transparent'
-                      }}
-                      asChild
-                    >
-                      <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="mr-2 h-4 w-4" />
-                        Demo
-                      </a>
-                    </Button>
-                  ) : (
-                    <Button variant="outline" size="sm" className="opacity-50 cursor-not-allowed" disabled>
-                      <ExternalLink className="mr-2 h-4 w-4" />
-                      Demo
-                    </Button>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+
+        <article className="project project-browser" aria-labelledby="browserproof-title">
+          <div className="project-visual browser-visual" role="group" aria-label="BrowserProof reliability testing summary">
+            <div className="coverage-number">90<span>%</span></div>
+            <p>seeded-failure detection</p>
+            <div className="coverage-meta"><span><b>36</b> controlled scenarios</span><span><b>10</b> fault types</span></div>
+          </div>
+          <div className="project-copy">
+            <h3 id="browserproof-title">BrowserProof</h3>
+            <p className="project-subtitle">Reliability testing for AI browser agents</p>
+            <p className="project-description">A controlled test suite for seeing how browser agents behave when the browser or network misbehaves. It turns seeded faults into reproducible CI regression scenarios.</p>
+            <Stack items={browserStack} />
+            <div className="project-footer"><span>36 scenarios · 10 fault types</span><ProjectLink href="https://github.com/krishna31102004/browser-proof" /></div>
+          </div>
+        </article>
+
+        <article className="project project-glassbox" aria-labelledby="glassbox-title">
+          <div className="project-copy">
+            <h3 id="glassbox-title">Glassbox SRE</h3>
+            <p className="project-subtitle">An AI-powered incident investigator</p>
+            <p className="project-description">A read-only incident analysis system with parallel workflows, evaluated against a replayable 15-scenario benchmark. Top-1 commit identification reached 86.7%, compared with a 13.3% heuristic baseline.</p>
+            <Stack items={glassboxStack} />
+            <div className="project-footer"><span>15-scenario replay benchmark</span><ProjectLink href="https://github.com/krishna31102004/ai-sre-new" /></div>
+          </div>
+          <div className="project-visual glassbox-visual" role="img" aria-label="Top-1 commit identification benchmark: 86.7 percent versus 13.3 percent">
+            <div className="benchmark-row"><span>Glassbox SRE</span><b>86.7%</b></div>
+            <div className="benchmark-track"><span className="benchmark-fill" /></div>
+            <div className="benchmark-row baseline"><span>Heuristic baseline</span><b>13.3%</b></div>
+            <div className="benchmark-track"><span className="benchmark-fill baseline-fill" /></div>
+            <p className="benchmark-note">15-scenario replay benchmark</p>
+          </div>
+        </article>
+
+        <article className="project project-atlas" aria-labelledby="atlas-title">
+          <div className="atlas-summary">
+            <div className="atlas-primary"><strong>15M<span>+</span></strong><span>price data points</span></div>
+            <div className="atlas-secondary"><div><b>4,000+</b><span>stock tickers</span></div><div><b>&lt;200ms</b><span>P99 latency</span></div></div>
+          </div>
+          <div className="project-copy">
+            <h3 id="atlas-title">ATLAS</h3>
+            <p className="project-subtitle">High-performance analytics engine</p>
+            <p className="project-description">A data-intensive analytics system built to query market history at scale. Polars and Parquet support fast backtests across 4,000+ tickers, reducing backtest query time by 80%.</p>
+            <Stack items={atlasStack} />
+            <div className="project-footer"><span>80% less backtest query time</span></div>
+          </div>
+        </article>
       </div>
     </section>
   );

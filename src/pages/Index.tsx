@@ -1,28 +1,22 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
 import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
+import About from "@/components/About";
 import Contact from "@/components/Contact";
-import ScrollProgress from "@/components/ui/scroll-progress";
-import SectionDivider from "@/components/ui/section-divider";
 
-const Index = () => {
+export default function Index() {
   return (
-    <div className="min-h-screen bg-background">
-      <ScrollProgress />
+    <>
+      <a className="skip-link" href="#main">Skip to content</a>
       <Navigation />
-      <Hero />
-      <SectionDivider />
-      <About />
-      <SectionDivider />
-      <Experience />
-      <SectionDivider />
-      <Projects />
-      <SectionDivider />
-      <Contact />
-    </div>
+      <main id="main">
+        <Hero />
+        <Experience />
+        <Projects />
+        <About />
+        <Contact />
+      </main>
+    </>
   );
-};
-
-export default Index;
+}
