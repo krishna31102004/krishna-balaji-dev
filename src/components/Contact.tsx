@@ -5,7 +5,7 @@ export default function Contact() {
     <footer className="contact-section" id="contact">
       <div className="section-wrap">
         <div className="contact-top">
-          <div><p className="section-index">Contact</p><h2>Build what holds up.</h2><p className="contact-note">For engineering roles, project conversations, or a good technical question.</p></div>
+          <div><h2>Let’s get in touch.</h2><p className="contact-note">I’m happy to talk about engineering roles, projects, or what I’m learning at UIUC.</p></div>
           <a className="contact-email" href="mailto:krishna311004@gmail.com">krishna311004@gmail.com <ArrowUpRight size={19} aria-hidden="true" /></a>
         </div>
         <div className="footer-bottom">

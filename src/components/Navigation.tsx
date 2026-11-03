@@ -2,9 +2,10 @@ import { useRef, useState, type KeyboardEvent } from "react";
 import { Menu, X } from "lucide-react";
 
 const items = [
+  ["About", "#about"],
+  ["Education", "#education"],
   ["Experience", "#experience"],
   ["Projects", "#projects"],
-  ["Education", "#education"],
   ["Contact", "#contact"],
 ] as const;
 

@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
+import Education from "@/components/Education";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 
@@ -12,9 +13,10 @@ export default function Index() {
       <Navigation />
       <main id="main">
         <Hero />
+        <About />
+        <Education />
         <Experience />
         <Projects />
-        <About />
         <Contact />
       </main>
     </>

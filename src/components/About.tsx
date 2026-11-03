@@ -1,33 +1,15 @@
-const groups = [
-  ["Backend & APIs", "Node.js, Express, FastAPI, REST APIs"],
-  ["Data & machine learning", "PostgreSQL, Redis, Polars, Parquet, XGBoost, LightGBM, PuLP"],
-  ["Infrastructure & integrations", "GCP, Prometheus, Slack, Stripe, LangGraph"],
-  ["Languages", "Python, JavaScript / TypeScript, SQL"],
-];
-
 export default function About() {
   return (
-    <section className="section-wrap content-section about-section" id="education" aria-labelledby="education-title">
+    <section className="about-section section-wrap content-section" id="about" aria-labelledby="about-title">
       <div className="section-heading">
-        <p className="section-index">Education</p>
-        <div><h2 id="education-title">Learning in progress</h2><p>Computer science, applied systems, and the business context around them.</p></div>
+        <h2 id="about-title">A little about me</h2>
       </div>
-      <div className="about-grid">
-        <div className="education-list">
-          <article className="education-item">
-            <span className="education-date">Aug 2026 – May 2028</span>
-            <div><h3>University of Illinois Urbana-Champaign</h3><p>Master of Computer Science</p></div>
-            <span className="education-status">In progress</span>
-          </article>
-          <article className="education-item">
-            <span className="education-date">Aug 2022 – May 2026</span>
-            <div><h3>Arizona State University</h3><p>B.S. Computer Science (Honors) · Minor in Business</p></div>
-            <span className="education-status">GPA 4.00 / 4.00</span>
-          </article>
-        </div>
-        <div className="skills-panel">
-          <h3>Technical toolkit</h3>
-          <dl>{groups.map(([label, skills]) => <div className="skill-row" key={label}><dt>{label}</dt><dd>{skills}</dd></div>)}</dl>
+      <div className="about-layout">
+        <p className="about-lede">I’m a computer science student at the University of Illinois Urbana-Champaign, continuing my studies after graduating from Arizona State University.</p>
+        <div className="about-copy">
+          <p>My internships have taken me through product engineering, university research, and machine-learning work in industry. Along the way I’ve built APIs and workflows, data pipelines, and cloud services.</p>
+          <p>Outside those roles, I’ve been building BrowserProof, Glassbox SRE, and ATLAS: projects focused on agent reliability, incident analysis, and fast analytics.</p>
+          <div className="about-focus"><span>Currently studying</span><strong>Master of Computer Science · UIUC</strong></div>
         </div>
       </div>
     </section>

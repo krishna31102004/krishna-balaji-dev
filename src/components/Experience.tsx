@@ -3,7 +3,6 @@ const roles = [
     company: "Circle.ooo",
     title: "Software Engineering Intern",
     dates: "Sep 2025 – Apr 2026",
-    location: "Product engineering",
     points: [
       <>Implemented <strong>41 REST API endpoints</strong> across 9 Node.js / Express route modules.</>,
       <>Designed a sponsorship recommendation engine with <strong>6 weighted compatibility factors</strong>.</>,
@@ -14,7 +13,6 @@ const roles = [
     company: "Arizona State University",
     title: "Research Software Engineer Intern",
     dates: "Sep 2025 – Apr 2026",
-    location: "Applied machine learning",
     points: [
       <>Built ML pipelines over <strong>106,881 player-gameweek observations</strong>, reaching 0.70 mean Spearman correlation with XGBoost, LightGBM, and walk-forward validation.</>,
       <>Developed a rank-based signal evaluated against <strong>11M+ historical selection records</strong>.</>,
@@ -25,7 +23,6 @@ const roles = [
     company: "Quantiphi",
     title: "Machine Learning Engineer Intern",
     dates: "May 2025 – Aug 2025",
-    location: "Claims automation · GCP",
     points: [
       <>Built Python ETL pipelines for <strong>50,000+ claims per month</strong>, reducing manual review time by 80%.</>,
       <>Raised document extraction accuracy from <strong>72% to 90%</strong>.</>,
@@ -38,13 +35,13 @@ export default function Experience() {
   return (
     <section className="section-wrap content-section" id="experience" aria-labelledby="experience-title">
       <div className="section-heading">
-        <p className="section-index">Career history</p>
-        <div><h2 id="experience-title">Where I’ve contributed</h2><p>Engineering work across product, research, and applied machine learning.</p></div>
+        <h2 id="experience-title">My experience</h2>
+        <p>Product engineering, university research, and applied machine learning.</p>
       </div>
-      <div className="experience-list">
+      <div className="experience-timeline">
         {roles.map((role) => (
           <article className="experience-row" key={role.company}>
-            <div className="experience-date"><span>{role.dates}</span><span className="experience-location">{role.location}</span></div>
+            <div className="experience-date"><span>{role.dates}</span></div>
             <div className="experience-detail">
               <div className="experience-titleline"><div><h3>{role.company}</h3><p>{role.title}</p></div></div>
               <ul>{role.points.map((point, index) => <li key={index}>{point}</li>)}</ul>
