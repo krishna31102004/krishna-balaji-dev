@@ -319,7 +319,7 @@ export function PortfolioPreloader({
           </>
         )}
         <span className="pl-note" style={{ left: 18, bottom: 16 }}>sheet 01 · krishna · setting out</span>
-        <span className="pl-note" style={{ right: 18, bottom: 16 }}>issue 01 · {Math.round(col ? col.r - col.l : 0)}px column</span>
+        <span className="pl-note pl-note-r" style={{ right: 18, bottom: 16 }}>issue 01 · {Math.round(col ? col.r - col.l : 0)}px column</span>
 
         {items.map((it, i) => {
           const on = progress >= 4 + (i / n) * (BOX_SPAN - 4);

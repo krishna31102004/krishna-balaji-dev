@@ -54,6 +54,10 @@
   color: color-mix(in srgb, var(--pl-ink) 45%, transparent);
   white-space: nowrap;
 }
+/* On narrow screens the two bottom labels would collide, so keep the left one. */
+@media (max-width: 480px) {
+  .pl-note-r { display: none; }
+}
 
 /* ---------- labels ---------- */
 .pl-chip {
