@@ -3,6 +3,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Link,
   useLocation,
 } from "react-router-dom";
 
@@ -53,6 +54,33 @@ const VALID_ROUTES = [
   "/experiments/memory-box",
   "/experiments/vending-machine",
 ];
+
+const SITE_NAME = "Krishna Balaji";
+
+// Per-route document titles. Keep in step with PAGES in middleware.ts,
+// which sets the same titles for crawlers.
+const PAGE_TITLES: Record<string, string> = {
+  "/": `${SITE_NAME} — Software Engineer`,
+  "/projects": `Projects — ${SITE_NAME}`,
+  "/experience": `Experience — ${SITE_NAME}`,
+  "/contact": `Get in touch — ${SITE_NAME}`,
+  "/writing": `Writing — ${SITE_NAME}`,
+  "/experiments": `Experiments — ${SITE_NAME}`,
+  "/experiments/memory-box": `Memory Box — ${SITE_NAME}`,
+  "/experiments/vending-machine": `Vending Machine — ${SITE_NAME}`,
+  "/experiments/404": `404 Sign — ${SITE_NAME}`,
+};
+
+function DocumentTitle() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const path = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+    document.title = PAGE_TITLES[path] ?? `Page not found — ${SITE_NAME}`;
+  }, [pathname]);
+
+  return null;
+}
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -111,6 +139,15 @@ function NotFoundPage() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[var(--bg)] text-[var(--fg)]">
       <NotFoundSign />
+
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex justify-center px-5 pb-10 sm:pb-14">
+        <Link
+          to="/"
+          className="pointer-events-auto inline-flex items-center gap-2 rounded-lg border border-[var(--fg)] bg-[var(--fg)] px-5 py-2.5 font-mono text-[12px] font-semibold text-[var(--bg)] transition-all duration-200 hover:-translate-y-0.5 hover:opacity-85"
+        >
+          <span aria-hidden="true">&larr;</span> Back to home
+        </Link>
+      </div>
     </div>
   );
 }
@@ -267,6 +304,8 @@ export function App() {
             <Analytics />
 
             <ScrollToTop />
+
+            <DocumentTitle />
 
             <AppContent />
 

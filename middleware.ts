@@ -12,13 +12,19 @@ const PAGES: Record<string, { title: string; subtitle: string }> = {
   "/experience": { title: "Experience", subtitle: "RailTEC · Circle.ooo · Arizona State University · Quantiphi" },
   "/contact": { title: "Get in touch", subtitle: "Open to software engineering internships" },
   "/experiments": { title: "Experiments", subtitle: "Small interactive things built for fun" },
+  "/experiments/memory-box": { title: "Memory Box", subtitle: "A pinboard of photos and moments, built for fun" },
+  "/experiments/vending-machine": { title: "Vending Machine", subtitle: "An interactive vending machine, built for fun" },
+  "/experiments/404": { title: "404 Sign", subtitle: "A neon 404 sign you can poke, drag and swing" },
 };
+
+const NOT_FOUND = { title: "Page not found", subtitle: "That page doesn't exist. Head back to the home page." };
 
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 
 export default async function middleware(req: Request) {
   const url = new URL(req.url);
-  const page = PAGES[url.pathname] ?? PAGES[url.pathname.startsWith("/experiments") ? "/experiments" : "/"];
+  // Unknown paths under /experiments/ are 404s; the matcher only lists known top-level routes.
+  const page = PAGES[url.pathname] ?? (url.pathname.startsWith("/experiments/") ? NOT_FOUND : PAGES["/"]);
 
   const res = await fetch(new URL("/index.html", url));
   const html = await res.text();
