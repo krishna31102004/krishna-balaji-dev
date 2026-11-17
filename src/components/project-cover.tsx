@@ -90,7 +90,7 @@ export function CoverWindow({ project: p }: { project: Project }) {
  * Muted looping background video. Plays only while on screen; HLS streams
  * load hls.js on demand (Safari plays them natively).
  */
-export function CoverVideo({ src }: { src: string }) {
+export function CoverVideo({ src, onError }: { src: string; onError?: () => void }) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -108,6 +108,9 @@ export function CoverVideo({ src }: { src: string }) {
         if (cancelled) return;
         if (Hls.isSupported()) {
           const instance = new Hls();
+          instance.on(Hls.Events.ERROR, (_e, data) => {
+            if (data.fatal) onError?.();
+          });
           instance.loadSource(src);
           instance.attachMedia(video);
           hls = instance;
@@ -131,11 +134,13 @@ export function CoverVideo({ src }: { src: string }) {
       observer.disconnect();
       hls?.destroy();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [src]);
 
   return (
     <video
       ref={ref}
+      onError={() => onError?.()}
       muted
       loop
       playsInline

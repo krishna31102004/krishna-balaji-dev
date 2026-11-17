@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shell, SectionHeader } from "@/components/Layout";
-import { site, type Project } from "@/config/site";
+import { site, PROJECT_TABS, type Project, type ProjectCategory } from "@/config/site";
 import { ProjectCard } from "./ProjectCard";
 import {
   Search,
@@ -27,26 +27,16 @@ export function Projects({
   const [activeProject, setActiveProject] = useState<Project | null>(
     null
   );
+  // Videos that failed to load fall back to the generated cover.
+  const [failedVideos, setFailedVideos] = useState<string[]>([]);
+  const modalHasVideo =
+    !!activeProject?.video && !failedVideos.includes(activeProject.video);
 
 const displayedProjects = useMemo(() => {
   const filtered = site.projects.filter((p) => {
     if (
-      projectTab === "Frontend" &&
-      !p.categories?.includes("Frontend")
-    ) {
-      return false;
-    }
-
-    if (
-      projectTab === "Backend" &&
-      !p.categories?.includes("Backend")
-    ) {
-      return false;
-    }
-
-    if (
-      projectTab === "Fullstack" &&
-      !p.categories?.includes("Fullstack")
+      projectTab !== "All" &&
+      !p.categories?.includes(projectTab as ProjectCategory)
     ) {
       return false;
     }
@@ -102,7 +92,7 @@ const displayedProjects = useMemo(() => {
           aside={
             !isSearchable ? (
               <div className="flex gap-1 rounded-lg border border-[var(--line)] bg-[var(--chip)] p-0.5">
-                {["All", "Frontend", "Backend", "Fullstack"].map(
+                {PROJECT_TABS.map(
                   (tab) => (
                     <button
                       key={tab}
@@ -150,7 +140,7 @@ const displayedProjects = useMemo(() => {
               </div>
 
               <div className="flex gap-1 rounded-lg border border-[var(--line)] bg-[var(--chip)] p-0.5">
-                {["All", "Frontend", "Backend", "Fullstack"].map(
+                {PROJECT_TABS.map(
                   (tab) => (
                     <button
                       key={tab}
@@ -319,17 +309,22 @@ const displayedProjects = useMemo(() => {
                     {(
                       <div className="border-b border-[var(--line)] bg-[var(--chip)]">
                         <div className="relative aspect-[16/7] w-full overflow-hidden">
-                          {activeProject.video ? (
-                            <CoverVideo src={activeProject.video} />
+                          {modalHasVideo ? (
+                            <CoverVideo
+                              src={activeProject.video!}
+                              onError={() =>
+                                setFailedVideos((v) => [...v, activeProject.video!])
+                              }
+                            />
                           ) : (
                             <CoverAurora title={activeProject.title} />
                           )}
-                          {!activeProject.video && (
+                          {!modalHasVideo && (
 <div className="absolute left-1/2 top-1/2 h-[70%] w-[55%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-lg border border-[var(--line)] shadow-2xl">
                             <CoverWindow project={activeProject} />
                           </div>
                           )}
-                          {!activeProject.video && activeProject.image && (
+                          {!modalHasVideo && activeProject.image && (
                             <img
                               src={activeProject.image}
                               alt={activeProject.title}

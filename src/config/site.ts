@@ -21,6 +21,11 @@ export const SPOTIFY_TRACKS: { title: string; artist: string; length: string }[]
 ];
 
 
+export const PROJECT_CATEGORIES = ["Backend", "AI Agents", "ML"] as const;
+export type ProjectCategory = (typeof PROJECT_CATEGORIES)[number];
+/** Filter tabs on the home section and /projects. Every category needs at least one project. */
+export const PROJECT_TABS = ["All", ...PROJECT_CATEGORIES] as const;
+
 export type Project = {
   title: string;
   blurb: string;
@@ -35,7 +40,7 @@ export type Project = {
   video?: string;
   // "research" projects get a paper-style cover instead of an app window.
   kind?: "app" | "research";
-  categories?: ("Frontend" | "Backend" | "Fullstack")[];
+  categories?: ProjectCategory[];
 };
 
 export type Job = {
@@ -144,7 +149,7 @@ export const site = {
   status: {
     available: true,
 
-    availableText: "open to software engineering internships",
+    availableText: "open to Summer 2027 software engineering internships",
 
     nowLearning:
       "Distributed Systems • Database Systems • Applied ML",
@@ -255,9 +260,7 @@ export const site = {
 
       image: "/project-images/browserproof.webp",
 
-      video: "https://stream.mux.com/kimF2ha9zLrX64H00UgLGPflCzNtl1T0215MlAmeOztv8.m3u8",
-
-      categories: ["Backend", "Fullstack"],
+      categories: ["AI Agents", "Backend"],
     },
 
     {
@@ -293,7 +296,7 @@ export const site = {
 
       video: "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260808_064556_051587f1-74a1-4336-8c05-4dde3594ed05.mp4",
 
-      categories: ["Backend", "Fullstack"],
+      categories: ["AI Agents", "Backend"],
     },
 
     {
@@ -360,7 +363,7 @@ export const site = {
 
       video: "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260723_145606_ab143199-b593-4941-bb1b-9afca215416b.mp4",
 
-      categories: ["Backend"],
+      categories: ["ML"],
     },
 
     {
@@ -392,7 +395,7 @@ export const site = {
 
       image: "/project-images/pennywise-ai.webp",
 
-      categories: ["Fullstack", "Frontend"],
+      categories: ["Backend"],
     },
 
     {
@@ -423,7 +426,7 @@ export const site = {
 
       image: "/project-images/ai-job-matcher.webp",
 
-      categories: ["Fullstack", "Frontend"],
+      categories: ["ML"],
     },
 
     {
@@ -451,7 +454,7 @@ export const site = {
 
       image: "/project-images/charity-donation-manager.webp",
 
-      categories: ["Fullstack"],
+      categories: ["Backend"],
     },
   ] as Project[],
 

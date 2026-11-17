@@ -13,6 +13,9 @@ const getProjectGradient = (index: number) => {
 export function ProjectCard({ project: p, index = 0 }: { project: Project; index?: number }) {
   const [showDetails, setShowDetails] = useState(false);
   const [imgError, setImgError] = useState(false);
+  // A video that fails to load falls back to the generated cover.
+  const [videoError, setVideoError] = useState(false);
+  const hasVideo = !!p.video && !videoError;
 
   return (
     <Spotlight className="h-full rounded-xl">
@@ -54,15 +57,15 @@ export function ProjectCard({ project: p, index = 0 }: { project: Project; index
           </div>
 
           {/* Angled Screenshot Image (generated cover when there's no screenshot) */}
-          {p.video ? (
+          {hasVideo ? (
             <>
-              <CoverVideo src={p.video} />
+              <CoverVideo src={p.video!} onError={() => setVideoError(true)} />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20" />
             </>
           ) : (
             !(p.image && !imgError) && <CoverAurora title={p.title} />
           )}
-          {!p.video && (
+          {!hasVideo && (
           <div className="absolute -right-6 -bottom-3 w-56 h-32 sm:-right-12 sm:-bottom-5 sm:w-72 sm:h-40 rounded-lg border-4 border-[var(--bg)]/40 shadow-xl overflow-hidden group-hover:-right-4 group-hover:-bottom-1 sm:group-hover:-right-9 sm:group-hover:-bottom-2 transition-all duration-300 pointer-events-none">
             {p.image && !imgError ? (
               <img
