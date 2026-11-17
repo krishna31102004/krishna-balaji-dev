@@ -1,7 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { ListMusic, Music2, Pause, Play, SkipForward, X } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { site, SPOTIFY_PLAYLIST_ID } from "@/config/site";
+import { site, SPOTIFY_PLAYLIST_ID, SPOTIFY_PLAYLIST_NAME, SPOTIFY_TRACKS } from "@/config/site";
+
+const toMs = (len: string) => {
+  const [m, s] = len.split(":").map(Number);
+  return (m * 60 + s) * 1000;
+};
+
+/** Find the playlist song with this length; null if none or ambiguous. */
+function matchByLength(durationMs: number) {
+  const hits = SPOTIFY_TRACKS.filter((t) => Math.abs(toMs(t.length) - durationMs) <= 1500);
+  return hits.length === 1 ? hits[0] : null;
+}
 
 const HIDDEN_KEY = "now-playing-hidden";
 const SPOTIFY_API_SRC = "https://open.spotify.com/embed/iframe-api/v1";
@@ -142,6 +153,7 @@ export function NowPlaying() {
   const [source, setSource] = useState<"local" | "spotify">("local");
   const [spotifyPlaying, setSpotifyPlaying] = useState(false);
   const [spotifyUri, setSpotifyUri] = useState<string | null>(null);
+  const [spotifyDuration, setSpotifyDuration] = useState(0);
   const [spotifyMeta, setSpotifyMeta] = useState<{ uri: string; title: string | null } | null>(null);
   const spotifyRef = useRef<SpotifyController | null>(null);
   const metaCache = useRef(new Map<string, string | null>());
@@ -157,6 +169,7 @@ export function NowPlaying() {
 
   const handleSpotifyUpdate = (state: SpotifyPlaybackState) => {
     if (state.playingURI) setSpotifyUri(state.playingURI);
+    if (state.duration) setSpotifyDuration(state.duration);
     if (!state.isPaused) {
       setSource("spotify");
       setPlaying(false); // pauses the local audio via the effect below
@@ -211,8 +224,20 @@ export function NowPlaying() {
   const fromSpotify = source === "spotify";
   const isPlaying = fromSpotify ? spotifyPlaying : playing;
   const spotifyTitle = spotifyMeta && spotifyMeta.uri === spotifyUri ? spotifyMeta.title : null;
-  const displayTitle = fromSpotify ? spotifyTitle ?? "Playing on Spotify" : track.title;
-  const displayArtist = fromSpotify ? null : track.artist;
+  // Logged out: Spotify reports the track, so oEmbed gives the title and the
+  // list gives the artist. Logged in: it reports only the playlist and the
+  // song length, so match the length against the list.
+  const byTitle = spotifyTitle
+    ? SPOTIFY_TRACKS.find((t) => t.title.toLowerCase() === spotifyTitle.toLowerCase()) ?? null
+    : null;
+  const byLength = !spotifyTitle && spotifyDuration ? matchByLength(spotifyDuration) : null;
+  const spotifyMatch = byTitle ?? byLength;
+  const displayTitle = fromSpotify
+    ? spotifyTitle ?? spotifyMatch?.title ?? SPOTIFY_PLAYLIST_NAME
+    : track.title;
+  const displayArtist = fromSpotify
+    ? spotifyMatch?.artist ?? (spotifyTitle ? null : "Spotify")
+    : track.artist;
 
   const togglePlay = () => {
     if (fromSpotify) {

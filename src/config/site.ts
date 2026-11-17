@@ -4,6 +4,21 @@
  * Spotify share URL). This is the only place it needs to change.
  */
 export const SPOTIFY_PLAYLIST_ID = "37i9dQZF1DXcBWIGoYBM5M";
+export const SPOTIFY_PLAYLIST_NAME = "Today's Top Hits";
+
+/**
+ * Songs in the playlist, used to name the song in the floating player.
+ * When a visitor is logged into Spotify, the embed only reports the playlist
+ * and the song's length, so the player matches that length against this list.
+ * Keep it in sync with the playlist (lengths to the second are enough).
+ * Placeholder entries below match the placeholder playlist; replace them
+ * together with SPOTIFY_PLAYLIST_ID.
+ */
+export const SPOTIFY_TRACKS: { title: string; artist: string; length: string }[] = [
+  { title: "BbY WOW", artist: "KAROL G", length: "3:45" },
+  { title: "Housewife", artist: "Tate McRae", length: "3:28" },
+  { title: "Stop The Wedding!", artist: "Ashe", length: "3:18" },
+];
 
 
 export type Project = {
