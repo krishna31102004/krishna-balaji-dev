@@ -137,7 +137,7 @@ export function CommandPalette({
                       <Item icon={<Compass />} title="Home" sub="Intro, football game and highlights" onSelect={() => go("/")} />
                       <Item icon={<User />} title="About" sub="Bio, education and quick facts" onSelect={() => go("/#about")} />
                       <Item icon={<Globe />} title="Projects" sub="BrowserProof, Glassbox SRE, ATLAS, FPL research..." onSelect={() => go("/projects")} />
-                      <Item icon={<Briefcase />} title="Experience" sub="Circle.ooo, ASU research, Quantiphi" onSelect={() => go("/experience")} />
+                      <Item icon={<Briefcase />} title="Experience" sub="RailTEC, Circle.ooo, ASU research, Quantiphi" onSelect={() => go("/experience")} />
                       <Item icon={<FlaskConical />} title="Experiments" sub="Memory board, vending machine and other toys" onSelect={() => go("/experiments")} />
                       <Item icon={<Mail />} title="Contact" sub="Send a message or grab the email" onSelect={() => go("/contact")} />
                     </Command.Group>

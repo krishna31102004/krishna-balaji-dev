@@ -27,8 +27,9 @@ export type Job = {
   company: string;
   role: string;
   period: string;
-  blurb: string;
   url?: string;
+  /** Ongoing role: its timeline dot is filled and glows. */
+  current?: boolean;
 };
 
 export type FreelanceProject = {
@@ -107,11 +108,11 @@ export const site = {
   // =========================================================
 
   about: [
-    "I'm Krishna Balaji, a software engineer working across backend systems, machine learning, and AI agents. I'm starting my Master of Computer Science at the University of Illinois Urbana-Champaign after finishing a B.S. in Computer Science (Honors) at Arizona State University with a 4.00 GPA.",
+    "I'm Krishna Balaji, a software engineer and Master of Computer Science student at the University of Illinois Urbana-Champaign. Before UIUC, I finished a B.S. in Computer Science (Honors) at Arizona State University.",
 
-    "I work mostly with Python, TypeScript, FastAPI, Node.js, PostgreSQL, Redis, and LangGraph, and I deploy on AWS, GCP, and Docker. I've shipped 41 REST endpoints for a sponsorship marketplace at Circle.ooo, built ML pipelines over 11M+ Fantasy Premier League records at ASU, and cut claim review time by 80% at Quantiphi.",
+    "These days I'm a research assistant at RailTEC, and on the side I'm building a filtered vector search engine that stays fast while the data underneath it keeps changing.",
 
-    "Lately I've been focused on making AI agents reliable: testing browser agents against real-world faults, and building incident-response agents that find the commit that broke production.",
+    "Most of what I build lives behind the scenes: backend services, data pipelines, and AI agents that have to keep working when things go wrong. Lately that means testing browser agents against real-world failures and building an incident-response agent that finds the commit that broke production.",
   ],
 
   tldr: [
@@ -191,27 +192,28 @@ export const site = {
 
   experience: [
     {
+      company: "RailTEC, UIUC",
+      role: "Research Assistant",
+      period: "Nov 2026 – Present",
+      url: "https://railtec.illinois.edu/",
+      current: true,
+    },
+    {
       company: "Circle.ooo",
       role: "Software Engineering Intern",
       period: "Sep 2025 – Apr 2026",
-      blurb:
-        "Implemented 41 REST API endpoints across 9 Node.js/Express route modules for a TypeScript sponsorship platform, covering marketplace, payment, and real-time messaging workflows. Designed a recommendation engine that scores host–sponsor compatibility across 6 weighted factors (industry overlap, budget fit, audience type) and surfaces ranked matches on both dashboards. Engineered sponsorship workflows across 9 relational tables for proposals, deadlines, messaging, and Stripe checkout.",
       url: "https://circle.ooo/",
     },
     {
       company: "Arizona State University",
       role: "Research Software Engineer Intern",
       period: "Sep 2025 – Apr 2026",
-      blurb:
-        "Engineered a Python ML pipeline over 106,881 player-gameweek observations across four Premier League seasons, using XGBoost and LightGBM with walk-forward validation for a 0.70 mean Spearman correlation. Validated a rank-based scoring signal across 11M+ Fantasy Premier League team selections that beat the crowd baseline by 0.96 points per gameweek. Built a PuLP mixed-integer optimizer for team selection that ranked in the top 0.9% on a blind 2024–25 holdout.",
       url: "https://www.asu.edu/",
     },
     {
       company: "Quantiphi",
       role: "Machine Learning Engineer Intern",
       period: "May 2025 – Aug 2025",
-      blurb:
-        "Developed Python ETL pipelines with Pydantic validation processing 50,000+ insurance claims a month, cutting manual review time by 80% through automated field extraction and anomaly flagging. Built document-extraction microservices on Gemini 1.5 Pro with structured outputs and confidence thresholding, raising accuracy from 72% to 90% across 10,000+ claims. Deployed them on GCP, helping cut claim approval cycle time by 25%.",
       url: "https://quantiphi.com/",
     },
   ] as Job[],

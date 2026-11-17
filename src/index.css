@@ -531,6 +531,13 @@ canvas[aria-hidden="true"] {
   .animate-cover-drift, .animate-cover-drift-rev { animation: none; }
 }
 
+/* Experience timeline: the current role's dot */
+.experience-dot-current {
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--neon-color) 16%, transparent),
+    0 0 14px var(--neon-glow);
+}
+
 /* Festive decorations */
 @keyframes festive-twinkle { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 @keyframes festive-sway { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
