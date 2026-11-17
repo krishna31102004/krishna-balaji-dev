@@ -45,12 +45,7 @@ const CursorGuide = () => {
       mouseX.set(e.clientX + 14);
       mouseY.set(e.clientY + 18);
 
-      const element = document.elementFromPoint(
-        e.clientX,
-        e.clientY
-      ) as HTMLElement | null;
-
-      const target = element?.closest(
+      const target = (e.target as Element | null)?.closest?.(
         "[data-cursor-label]"
       ) as HTMLElement | null;
 
