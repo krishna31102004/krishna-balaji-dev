@@ -32,6 +32,8 @@ interface ThemeContextType {
   setPalette: (palette: Palette, origin?: ThemeOrigin) => void;
 }
 
+let pendingSwitches = 0;
+
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({
@@ -120,22 +122,26 @@ export function ThemeProvider({
       };
     };
 
-    /*
-     * Browser supports View Transitions
-     */
+    const root = document.documentElement;
+    pendingSwitches++;
+    root.classList.add("theme-switching");
+    const done = () => {
+      if (--pendingSwitches <= 0) {
+        pendingSwitches = 0;
+        root.classList.remove("theme-switching");
+      }
+    };
+
     if (documentWithTransition.startViewTransition) {
-      documentWithTransition.startViewTransition(() => {
+      const transition = documentWithTransition.startViewTransition(() => {
         flushSync(apply);
       });
-
+      transition.finished.then(done, done);
       return;
     }
 
-    /*
-     * Fallback for browsers that don't support
-     * View Transition API.
-     */
     apply();
+    requestAnimationFrame(() => requestAnimationFrame(done));
   };
 
   const toggleTheme = (origin?: ThemeOrigin) => {

@@ -43,6 +43,9 @@ export function LiveCursors() {
   const channelRef = useRef<ReturnType<NonNullable<typeof supabase>["channel"]> | null>(null);
   const lastSent = useRef(0);
   const mouse = useRef({ x: 0, y: 0 });
+  const lastPos = useRef({ x: 0, y: 0 });
+  const chatOpen = useRef(false);
+  chatOpen.current = chat !== null;
 
   const send = (event: string, payload: object) =>
     channelRef.current?.send({ type: "broadcast", event, payload: { ...me, ...payload } });
@@ -83,7 +86,8 @@ export function LiveCursors() {
 
     const onMove = (e: PointerEvent) => {
       mouse.current = { x: e.clientX - window.innerWidth / 2, y: e.clientY + window.scrollY };
-      setPos({ x: e.clientX, y: e.clientY });
+      lastPos.current = { x: e.clientX, y: e.clientY };
+      if (chatOpen.current) setPos(lastPos.current);
       const now = performance.now();
       if (me.mobile || now - lastSent.current < 45) return;
       lastSent.current = now;
@@ -117,6 +121,7 @@ export function LiveCursors() {
       const typing = /INPUT|TEXTAREA|SELECT/.test(t?.tagName) || t?.isContentEditable;
       if (e.key === "/" && !typing && chat === null) {
         e.preventDefault();
+        setPos(lastPos.current);
         setChat("");
       }
     };

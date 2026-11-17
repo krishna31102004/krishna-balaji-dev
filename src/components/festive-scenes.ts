@@ -27,6 +27,26 @@ interface Scene {
 const rand = (a: number, b: number) => a + Math.random() * (b - a);
 const pick = <T,>(xs: T[]) => xs[Math.floor(Math.random() * xs.length)];
 
+/** Cached soft blob: alpha 1 at the centre, 0 at the edge. Tint strength comes from globalAlpha. */
+const blobCache = new Map<string, HTMLCanvasElement>();
+function blob(rgb: string): HTMLCanvasElement {
+  let c = blobCache.get(rgb);
+  if (!c) {
+    c = document.createElement("canvas");
+    c.width = c.height = 256;
+    const g = c.getContext("2d")!;
+    const grad = g.createRadialGradient(128, 128, 0, 128, 128, 128);
+    grad.addColorStop(0, `rgba(${rgb},1)`);
+    grad.addColorStop(1, `rgba(${rgb},0)`);
+    g.fillStyle = grad;
+    g.beginPath();
+    g.arc(128, 128, 128, 0, Math.PI * 2);
+    g.fill();
+    blobCache.set(rgb, c);
+  }
+  return c;
+}
+
 /** Random x inside a side margin when there is room, else anywhere. */
 const gutterX = (env: Env, pad = 30) =>
   env.gutter > 140
@@ -110,14 +130,10 @@ function christmas(): Scene {
         b.y -= 0.12;
         if (b.y < -60) b.y = env.h + 60;
         const a = 0.08 + 0.06 * Math.sin(env.t * 0.02 + b.ph);
-        const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
-        g.addColorStop(0, `rgba(${b.c},${a * 2})`);
-        g.addColorStop(1, `rgba(${b.c},0)`);
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.globalAlpha = a * 2;
+        ctx.drawImage(blob(b.c), b.x - b.r, b.y - b.r, b.r * 2, b.r * 2);
       }
+      ctx.globalAlpha = 1;
 
       // Snow: depth layers, wind from cursor movement, pushed by the cursor.
       const wind = env.mvx * 0.04;
@@ -220,6 +236,7 @@ function diwali(): Scene {
   let rockets: Rocket[] = [];
   let embers: { x: number; y: number; vy: number; ph: number; r: number }[] = [];
   let nextLaunch = 30;
+  let volley = 0;
   const HUES = [45, 30, 330, 285, 190, 140, 0];
 
   const launch = (env: Env, x = gutterX(env), ty = rand(env.h * 0.12, env.h * 0.42)) => {
@@ -251,7 +268,7 @@ function diwali(): Scene {
     intro(env) {
       embers = Array.from({ length: 70 }, () => ({ x: rand(0, env.w), y: rand(0, env.h), vy: rand(0.3, 1), ph: rand(0, 6), r: rand(0.8, 2.2) }));
       // Opening volley.
-      for (let i = 0; i < 5; i++) setTimeout(() => launch(env), i * 260);
+      volley = 5;
     },
     click(env, x, y) {
       rockets.push({ x, y: env.h + 10, vx: 0, vy: -Math.sqrt(2 * 0.12 * (env.h - y)) , ty: y, hue: pick(HUES), type: pick(["peony", "crossette", "ring", "willow"]) });
@@ -262,6 +279,11 @@ function diwali(): Scene {
       ctx.fillStyle = "rgba(0,0,0,0.22)";
       ctx.fillRect(0, 0, env.w, env.h);
       ctx.globalCompositeOperation = "lighter";
+
+      if (volley > 0 && env.t % 16 === 1) {
+        launch(env);
+        volley--;
+      }
 
       if (--nextLaunch <= 0) {
         launch(env);
@@ -468,14 +490,10 @@ function halloween(): Scene {
         f.x += f.vx;
         if (f.x < -f.r) f.x = env.w + f.r;
         if (f.x > env.w + f.r) f.x = -f.r;
-        const g = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.r);
-        g.addColorStop(0, `rgba(${f.c},0.14)`);
-        g.addColorStop(1, `rgba(${f.c},0)`);
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.globalAlpha = 0.14;
+        ctx.drawImage(blob(f.c), f.x - f.r, f.y - f.r, f.r * 2, f.r * 2);
       }
+      ctx.globalAlpha = 1;
 
       // Eyes in the dark that follow the cursor and blink.
       for (const e of eyes) {

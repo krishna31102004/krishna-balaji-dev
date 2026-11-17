@@ -160,31 +160,39 @@ function ChristmasTree() {
   ] as const;
 
   return (
-    <svg width="160" height="200" viewBox="0 0 160 200" className="drop-shadow-[0_0_24px_rgba(250,204,21,0.25)]">
-      <defs>
-        <linearGradient id="pine" x1="0" x2="1">
-          <stop offset="0" stopColor="#14532d" />
-          <stop offset="0.55" stopColor="#15803d" />
-          <stop offset="1" stopColor="#14532d" />
-        </linearGradient>
-        <radialGradient id="star">
-          <stop offset="0" stopColor="#fff7c2" />
-          <stop offset="1" stopColor="#facc15" />
-        </radialGradient>
-      </defs>
-      <rect x="72" y="166" width="16" height="22" rx="2" fill="#78350f" />
-      {tiers.map((t, i) => (
-        <path key={i} d={`M80 ${t.y - 30} L${80 + t.w} ${t.y + 32} Q80 ${t.y + 40} ${80 - t.w} ${t.y + 32} Z`} fill="url(#pine)" />
-      ))}
-      {/* Tinsel */}
-      <path d="M52 70 Q80 82 112 66 M40 104 Q82 120 124 100 M30 142 Q80 160 132 138" stroke="#fde68a" strokeWidth="1.4" fill="none" strokeDasharray="1 3" strokeLinecap="round" />
+    <div className="relative h-[200px] w-[160px]">
+      <svg width="160" height="200" viewBox="0 0 160 200" className="drop-shadow-[0_0_24px_rgba(250,204,21,0.25)]">
+        <defs>
+          <linearGradient id="pine" x1="0" x2="1">
+            <stop offset="0" stopColor="#14532d" />
+            <stop offset="0.55" stopColor="#15803d" />
+            <stop offset="1" stopColor="#14532d" />
+          </linearGradient>
+        </defs>
+        <rect x="72" y="166" width="16" height="22" rx="2" fill="#78350f" />
+        {tiers.map((t, i) => (
+          <path key={i} d={`M80 ${t.y - 30} L${80 + t.w} ${t.y + 32} Q80 ${t.y + 40} ${80 - t.w} ${t.y + 32} Z`} fill="url(#pine)" />
+        ))}
+        {/* Tinsel */}
+        <path d="M52 70 Q80 82 112 66 M40 104 Q82 120 124 100 M30 142 Q80 160 132 138" stroke="#fde68a" strokeWidth="1.4" fill="none" strokeDasharray="1 3" strokeLinecap="round" />
+      </svg>
       {ornaments.map(([x, y, c], i) => (
-        <circle key={i} cx={x} cy={y} r="4.2" fill={c} className="festive-chase" style={{ animationDelay: `${i * 0.2}s`, filter: `drop-shadow(0 0 4px ${c})` }} />
+        <span
+          key={i}
+          className="festive-chase absolute block size-[8.4px] rounded-full"
+          style={{ left: x - 4.2, top: y - 4.2, background: c, boxShadow: `0 0 4px ${c}`, animationDelay: `${i * 0.2}s` }}
+        />
       ))}
-      <g className="festive-star" style={{ transformOrigin: "80px 0px" }}>
+      <svg width="160" height="200" viewBox="0 0 160 200" className="festive-star absolute inset-0" style={{ transformOrigin: "80px 0px", overflow: "visible" }}>
+        <defs>
+          <radialGradient id="star">
+            <stop offset="0" stopColor="#fff7c2" />
+            <stop offset="1" stopColor="#facc15" />
+          </radialGradient>
+        </defs>
         <path d="M80 -14 L84.5 -2 L97 -2 L87 6 L91 18 L80 11 L69 18 L73 6 L63 -2 L75.5 -2 Z" transform="translate(0 6)" fill="url(#star)" style={{ filter: "drop-shadow(0 0 10px #facc15)" }} />
-      </g>
-    </svg>
+      </svg>
+    </div>
   );
 }
 

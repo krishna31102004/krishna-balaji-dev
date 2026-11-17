@@ -445,6 +445,18 @@ body {
   isolation: auto;
 }
 
+/* Keep the page clickable while the theme reveal runs. */
+::view-transition {
+  pointer-events: none;
+}
+
+/* Colours swap instantly inside the reveal; no per-element fades. */
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+  transition: none !important;
+}
+
 
 /* ------------------------------------------------------------------ */
 /*  Reduced Motion                                                    */
