@@ -328,17 +328,23 @@ export function NowPlaying() {
             transition={{ duration: 0.25, ease: "easeOut" }}
             className="fixed bottom-5 left-5 z-[9995] max-w-[calc(100vw-40px)]"
           >
-            <AnimatePresence>
-              {popupOpen && (
+            {popupMounted && (
                 <motion.div
                   ref={popupRef}
                   role="dialog"
                   aria-label="Spotify playlist"
-                  initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 12, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={reduceMotion ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, y: 12, scale: 0.98 }}
+                  aria-hidden={!popupOpen}
+                  {...(popupOpen ? {} : ({ inert: "" } as object))}
+                  initial={reduceMotion ? { opacity: 1, visibility: "visible" } : { opacity: 0, y: 12, scale: 0.98, visibility: "visible" }}
+                  animate={
+                    popupOpen
+                      ? { opacity: 1, y: 0, scale: 1, visibility: "visible" }
+                      : reduceMotion
+                        ? { opacity: 0, transitionEnd: { visibility: "hidden" } }
+                        : { opacity: 0, y: 12, scale: 0.98, transitionEnd: { visibility: "hidden" } }
+                  }
                   transition={reduceMotion ? { duration: 0 } : { duration: 0.2, ease: "easeOut" }}
-                  className="absolute bottom-full left-0 mb-3 w-[min(360px,calc(100vw-40px))] max-h-[calc(100dvh-96px)] overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--card)] p-2 shadow-2xl backdrop-blur-md"
+                  className={`absolute bottom-full left-0 mb-3 w-[min(360px,calc(100vw-40px))] max-h-[calc(100dvh-96px)] overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--card)] p-2 shadow-2xl backdrop-blur-md${popupOpen ? "" : " pointer-events-none"}`}
                 >
                   <div className="flex items-center justify-between px-2 pb-2 pt-1">
                     <p className="font-mono text-[10px] uppercase tracking-wider text-[var(--soft)]">Playlist</p>
@@ -352,12 +358,9 @@ export function NowPlaying() {
                       <X className="size-3.5" />
                     </button>
                   </div>
-                  {popupMounted && (
-                    <SpotifyEmbed onController={handleSpotifyController} onUpdate={handleSpotifyUpdate} />
-                  )}
+                  <SpotifyEmbed onController={handleSpotifyController} onUpdate={handleSpotifyUpdate} />
                 </motion.div>
-              )}
-            </AnimatePresence>
+            )}
 
             <div className="flex items-center gap-3 rounded-full border border-[var(--line)] bg-[var(--card)]/90 py-1.5 pl-1.5 pr-3 shadow-lg backdrop-blur-md">
             <button
