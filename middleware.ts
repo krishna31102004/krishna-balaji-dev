@@ -9,7 +9,7 @@ export const config = {
 const PAGES: Record<string, { title: string; subtitle: string }> = {
   "/": { title: "Krishna Balaji", subtitle: "Software engineer · backend systems, ML pipelines & reliable AI agents" },
   "/projects": { title: "Projects", subtitle: "BrowserProof, Glassbox SRE, ATLAS, FPL research and more" },
-  "/experience": { title: "Experience", subtitle: "Circle.ooo · Arizona State University · Quantiphi" },
+  "/experience": { title: "Experience", subtitle: "RailTEC · Circle.ooo · Arizona State University · Quantiphi" },
   "/contact": { title: "Get in touch", subtitle: "Open to software engineering internships" },
   "/experiments": { title: "Experiments", subtitle: "Small interactive things built for fun" },
 };

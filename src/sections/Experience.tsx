@@ -1,90 +1,90 @@
-
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { Shell, SectionHeader } from "@/components/Layout";
 import { site } from "@/config/site";
-import { ExternalLink } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 export function Experience({ isDetailed }: { isDetailed?: boolean }) {
   const location = useLocation();
+  const reduceMotion = useReducedMotion();
 
   const isExperiencePage =
-    isDetailed ??
-    location.pathname.startsWith("/experience");
+    isDetailed ?? location.pathname.startsWith("/experience");
 
   if (!site.experience.length) return null;
+
+  const lastIndex = site.experience.length - 1;
 
   return (
     <div id="experience">
       <SectionHeader title="Experience" />
 
       <Shell>
-        {site.experience.map((job, i) => (
-          <motion.div
-            key={`${job.company}-${i}`}
-            initial={{
-              opacity: 0,
-              y: 20,
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: true,
-              margin: "-50px",
-            }}
-            transition={{
-              duration: 0.4,
-              delay: i * 0.05,
-            }}
-            className={`px-6 py-6 transition-colors duration-200 hover:bg-[var(--hover)] sm:px-8 ${
-              i > 0
-                ? "border-t border-[var(--line)]"
-                : ""
-            }`}
-          >
-            {/* Experience Header */}
+        <ol aria-label="Work experience" className="px-6 py-7 sm:px-8 sm:py-8">
+          {site.experience.map((job, i) => {
+            const isFirst = i === 0;
+            const isLast = i === lastIndex;
 
-            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <h3 className="flex items-center gap-2 text-[15.5px] font-semibold text-[var(--fg)]">
-                {job.role}
-
-                <span className="text-[var(--soft)]">
-                  ·
-                </span>
-
-                <span className="text-[var(--muted)]">
-                  {job.company}
-                </span>
-
-                {job.url && (
-                  <a
-                    href={job.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Visit ${job.company}`}
-                  >
-                    <ExternalLink
-                      size={14}
-                      className="text-[var(--soft)]"
+            return (
+              <motion.li
+                key={`${job.company}-${job.role}`}
+                initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.4, delay: i * 0.06 }}
+                className="grid grid-cols-[13px_minmax(0,1fr)] gap-x-4 sm:gap-x-5"
+              >
+                <div aria-hidden="true" className="relative">
+                  {lastIndex > 0 && (
+                    <span
+                      className={`absolute left-[6px] w-px bg-[var(--line)] ${
+                        isFirst ? "top-3" : "top-0"
+                      } ${isLast ? "h-3" : "bottom-0"}`}
                     />
-                  </a>
-                )}
-              </h3>
+                  )}
+                  <span
+                    className={`relative mt-[5px] block size-[13px] rounded-full border-[1.5px] ${
+                      job.current
+                        ? "experience-dot-current border-[var(--neon-color)] bg-[var(--neon-color)]"
+                        : "border-[var(--soft)] bg-[var(--bg)]"
+                    }`}
+                  />
+                </div>
 
-              <span className="font-mono text-[11px] text-[var(--soft)]">
-                {job.period}
-              </span>
-            </div>
+                <div
+                  className={`min-w-0 sm:flex sm:items-baseline sm:justify-between sm:gap-4 ${
+                    isLast ? "" : "pb-7 sm:pb-8"
+                  }`}
+                >
+                  <div className="min-w-0">
+                    <h3 className="text-[15.5px] font-semibold leading-[23px] text-[var(--fg)]">
+                      {job.role}
+                    </h3>
+                    <p className="mt-0.5 text-[13.5px] leading-snug text-[var(--muted)]">
+                      {job.url ? (
+                        <a
+                          href={job.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group/co inline-flex items-center gap-1 transition-colors duration-200 hover:text-[var(--fg)]"
+                        >
+                          {job.company}
+                          <ArrowUpRight className="size-3 text-[var(--soft)] transition-transform duration-200 group-hover/co:-translate-y-0.5 group-hover/co:translate-x-0.5" />
+                        </a>
+                      ) : (
+                        job.company
+                      )}
+                    </p>
+                  </div>
 
-            {/* Experience Description */}
-
-            <p className="mt-2 max-w-2xl text-[13.5px] leading-relaxed text-[var(--muted)]">
-              {job.blurb}
-            </p>
-          </motion.div>
-        ))}
+                  <p className="mt-1.5 shrink-0 whitespace-nowrap font-mono text-[11px] text-[var(--soft)] sm:mt-0">
+                    {job.period}
+                  </p>
+                </div>
+              </motion.li>
+            );
+          })}
+        </ol>
 
         {/* =====================================================
             FREELANCE PROJECTS
