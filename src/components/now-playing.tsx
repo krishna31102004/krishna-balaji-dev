@@ -4,6 +4,119 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { site, SPOTIFY_PLAYLIST_ID } from "@/config/site";
 
 const HIDDEN_KEY = "now-playing-hidden";
+const SPOTIFY_API_SRC = "https://open.spotify.com/embed/iframe-api/v1";
+const SPOTIFY_URI = `spotify:playlist:${SPOTIFY_PLAYLIST_ID}`;
+
+type SpotifyPlaybackState = {
+  playingURI?: string;
+  isPaused: boolean;
+  isBuffering?: boolean;
+  duration?: number;
+  position?: number;
+};
+type SpotifyController = {
+  togglePlay: () => void;
+  pause: () => void;
+  destroy: () => void;
+  addListener: (name: string, cb: (e: { data: SpotifyPlaybackState }) => void) => void;
+  removeListener: (name: string, cb: (e: { data: SpotifyPlaybackState }) => void) => void;
+};
+type SpotifyIFrameAPI = {
+  createController: (
+    el: HTMLElement,
+    options: { uri: string; width?: string | number; height?: string | number },
+    cb: (controller: SpotifyController) => void,
+  ) => void;
+};
+declare global {
+  interface Window {
+    onSpotifyIframeApiReady?: (api: SpotifyIFrameAPI) => void;
+  }
+}
+
+let spotifyApiPromise: Promise<SpotifyIFrameAPI> | null = null;
+/** Loads Spotify's iFrame API once, and only when first asked for. */
+function loadSpotifyApi(): Promise<SpotifyIFrameAPI> {
+  if (spotifyApiPromise) return spotifyApiPromise;
+  spotifyApiPromise = new Promise<SpotifyIFrameAPI>((resolve, reject) => {
+    // The callback must exist before the script runs.
+    window.onSpotifyIframeApiReady = (api) => resolve(api);
+    if (document.querySelector(`script[src="${SPOTIFY_API_SRC}"]`)) return;
+    const script = document.createElement("script");
+    script.src = SPOTIFY_API_SRC;
+    script.async = true;
+    script.onerror = () => {
+      spotifyApiPromise = null; // allow a retry on next open
+      script.remove();
+      reject(new Error("Spotify iFrame API failed to load"));
+    };
+    document.body.appendChild(script);
+  });
+  return spotifyApiPromise;
+}
+
+/** Hosts the Spotify controller. Mounts only when the popup is open. */
+function SpotifyEmbed({
+  onController,
+  onUpdate,
+}: {
+  onController: (c: SpotifyController | null) => void;
+  onUpdate: (state: SpotifyPlaybackState) => void;
+}) {
+  const hostRef = useRef<HTMLDivElement>(null);
+  const cbRef = useRef({ onController, onUpdate });
+  cbRef.current = { onController, onUpdate };
+
+  useEffect(() => {
+    const host = hostRef.current;
+    if (!host) return;
+    let cancelled = false;
+    let controller: SpotifyController | null = null;
+    const listener = (e: { data: SpotifyPlaybackState }) => cbRef.current.onUpdate(e.data);
+    // createController replaces its target element, so give it a throwaway
+    // child and keep React's own node untouched.
+    const target = document.createElement("div");
+    host.appendChild(target);
+
+    loadSpotifyApi()
+      .then((api) => {
+        if (cancelled) return;
+        api.createController(target, { uri: SPOTIFY_URI, width: "100%", height: 352 }, (c) => {
+          if (cancelled) {
+            c.destroy();
+            return;
+          }
+          controller = c;
+          c.addListener("playback_update", listener);
+          cbRef.current.onController(c);
+        });
+      })
+      .catch(() => {
+        /* embed unavailable; pill keeps working with local audio */
+      });
+
+    return () => {
+      cancelled = true;
+      if (controller) {
+        controller.removeListener("playback_update", listener);
+        try {
+          controller.destroy();
+        } catch {
+          /* already gone */
+        }
+      }
+      cbRef.current.onController(null);
+      host.replaceChildren();
+    };
+  }, []);
+
+  return <div ref={hostRef} className="block h-[352px] w-full overflow-hidden rounded-xl" />;
+}
+
+function spotifyOembedUrl(uri: string): string | null {
+  const m = /^spotify:(track|episode):([A-Za-z0-9]+)$/.exec(uri);
+  return m ? `https://open.spotify.com/oembed?url=${encodeURIComponent(`https://open.spotify.com/${m[1]}/${m[2]}`)}` : null;
+}
 
 /**
  * Small floating player. Starts paused (browsers block autoplay anyway),
@@ -25,6 +138,14 @@ export function NowPlaying() {
 
   const track = tracks[index];
 
+  // Which player the pill reflects. Spotify's embed reports playback via the iFrame API.
+  const [source, setSource] = useState<"local" | "spotify">("local");
+  const [spotifyPlaying, setSpotifyPlaying] = useState(false);
+  const [spotifyUri, setSpotifyUri] = useState<string | null>(null);
+  const [spotifyMeta, setSpotifyMeta] = useState<{ uri: string; title: string | null } | null>(null);
+  const spotifyRef = useRef<SpotifyController | null>(null);
+  const metaCache = useRef(new Map<string, string | null>());
+
   const reduceMotion = useReducedMotion();
   const [popupOpen, setPopupOpen] = useState(false);
   // Mount the iframe only after the first open so it adds nothing to page load.
@@ -33,6 +154,79 @@ export function NowPlaying() {
   const popupRef = useRef<HTMLDivElement>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+
+  const handleSpotifyUpdate = (state: SpotifyPlaybackState) => {
+    if (state.playingURI) setSpotifyUri(state.playingURI);
+    if (!state.isPaused) {
+      setSource("spotify");
+      setPlaying(false); // pauses the local audio via the effect below
+      setSpotifyPlaying(true);
+    } else {
+      setSpotifyPlaying(false);
+    }
+  };
+  const handleSpotifyController = (c: SpotifyController | null) => {
+    spotifyRef.current = c;
+    if (!c) {
+      // Embed torn down (popup closed): its audio stops with it.
+      setSpotifyPlaying(false);
+      setSource("local");
+    }
+  };
+  const switchToLocal = () => {
+    spotifyRef.current?.pause();
+    setSpotifyPlaying(false);
+    setSource("local");
+  };
+
+  // Resolve a title for the Spotify track via oEmbed (cached, stale requests aborted).
+  useEffect(() => {
+    if (!spotifyUri) return;
+    const cache = metaCache.current;
+    if (cache.has(spotifyUri)) {
+      setSpotifyMeta({ uri: spotifyUri, title: cache.get(spotifyUri) ?? null });
+      return;
+    }
+    const url = spotifyOembedUrl(spotifyUri);
+    if (!url) {
+      setSpotifyMeta({ uri: spotifyUri, title: null });
+      return;
+    }
+    const ctrl = new AbortController();
+    fetch(url, { signal: ctrl.signal })
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+      .then((j: { title?: string }) => {
+        const title = typeof j.title === "string" && j.title.trim() ? j.title.trim() : null;
+        cache.set(spotifyUri, title);
+        setSpotifyMeta({ uri: spotifyUri, title });
+      })
+      .catch((err) => {
+        if (ctrl.signal.aborted || err?.name === "AbortError") return;
+        cache.set(spotifyUri, null);
+        setSpotifyMeta({ uri: spotifyUri, title: null });
+      });
+    return () => ctrl.abort();
+  }, [spotifyUri]);
+
+  const fromSpotify = source === "spotify";
+  const isPlaying = fromSpotify ? spotifyPlaying : playing;
+  const spotifyTitle = spotifyMeta && spotifyMeta.uri === spotifyUri ? spotifyMeta.title : null;
+  const displayTitle = fromSpotify ? spotifyTitle ?? "Playing on Spotify" : track.title;
+  const displayArtist = fromSpotify ? null : track.artist;
+
+  const togglePlay = () => {
+    if (fromSpotify) {
+      spotifyRef.current?.togglePlay();
+      return;
+    }
+    spotifyRef.current?.pause();
+    setPlaying((p) => !p);
+  };
+  const skip = () => {
+    if (fromSpotify) switchToLocal();
+    setIndex((i) => (i + 1) % tracks.length);
+    if (fromSpotify) setPlaying(true);
+  };
 
   const openPopup = () => {
     setPlaying(false); // pause the site's own audio
@@ -85,12 +279,13 @@ export function NowPlaying() {
     else audio.pause();
   }, [playing, index]);
 
-  const next = () => setIndex((i) => (i + 1) % tracks.length);
+  const next = () => setIndex((i) => (i + 1) % tracks.length); // local auto-advance
 
   const setHiddenPersist = (value: boolean) => {
     setHidden(value);
     if (value) {
       setPlaying(false);
+      spotifyRef.current?.pause();
       setPopupOpen(false);
     }
     try {
@@ -158,15 +353,7 @@ export function NowPlaying() {
                     </button>
                   </div>
                   {popupMounted && (
-                    <iframe
-                      title="Spotify playlist player"
-                      src={`https://open.spotify.com/embed/playlist/${SPOTIFY_PLAYLIST_ID}?utm_source=generator&theme=0`}
-                      width="100%"
-                      height="352"
-                      loading="lazy"
-                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                      className="block w-full rounded-xl border-0"
-                    />
+                    <SpotifyEmbed onController={handleSpotifyController} onUpdate={handleSpotifyUpdate} />
                   )}
                 </motion.div>
               )}
@@ -175,11 +362,11 @@ export function NowPlaying() {
             <div className="flex items-center gap-3 rounded-full border border-[var(--line)] bg-[var(--card)]/90 py-1.5 pl-1.5 pr-3 shadow-lg backdrop-blur-md">
             <button
               type="button"
-              onClick={() => setPlaying((p) => !p)}
-              aria-label={playing ? "Pause music" : "Play music"}
+              onClick={togglePlay}
+              aria-label={isPlaying ? "Pause music" : "Play music"}
               className="grid size-8 shrink-0 place-items-center rounded-full bg-[var(--fg)] text-[var(--bg)] transition-transform hover:scale-105 cursor-pointer"
             >
-              {playing ? (
+              {isPlaying ? (
                 <Pause className="size-3.5" fill="currentColor" />
               ) : (
                 <Play className="size-3.5 translate-x-px" fill="currentColor" />
@@ -191,13 +378,13 @@ export function NowPlaying() {
               onClick={() => (popupOpen ? closePopup() : openPopup())}
             >
               <p className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider text-[var(--soft)]">
-                <Equalizer active={playing} />
-                {playing ? "Now playing" : "Paused"}
+                <Equalizer active={isPlaying} />
+                {isPlaying ? "Now playing" : "Paused"}
               </p>
               <p className="truncate text-[12px] text-[var(--fg)] w-[130px]">
-                {track.title}
-                {track.artist && (
-                  <span className="text-[var(--muted)]"> · {track.artist}</span>
+                {displayTitle}
+                {displayArtist && (
+                  <span className="text-[var(--muted)]"> · {displayArtist}</span>
                 )}
               </p>
             </div>
@@ -216,8 +403,8 @@ export function NowPlaying() {
 
             <button
               type="button"
-              onClick={next}
-              aria-label="Next song"
+              onClick={skip}
+              aria-label={fromSpotify ? "Switch to site playlist" : "Next song"}
               className="text-[var(--muted)] transition-colors hover:text-[var(--fg)] cursor-pointer"
             >
               <SkipForward className="size-3.5" />
