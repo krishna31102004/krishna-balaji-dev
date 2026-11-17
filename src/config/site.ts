@@ -156,24 +156,6 @@ export const site = {
       "focus playlists",
   },
 
-  // Calm first; the player starts on track one.
-  playlist: [
-    { title: "Sunflower", artist: "Post Malone, Swae Lee", src: "/assets/music/sunflower.mp3" },
-    { title: "Night Changes", artist: "One Direction", src: "/assets/music/nightchanges.mp3" },
-    { title: "Mountains", artist: "", src: "/assets/music/mountains.mp3" },
-    { title: "Love Me", artist: "", src: "/assets/music/loveme.mp3" },
-    { title: "Get Lucky", artist: "Daft Punk", src: "/assets/music/getLucky.mp3" },
-    { title: "Blinding Lights", artist: "The Weeknd", src: "/assets/music/blindingLights.mp3" },
-    { title: "The Less I Know the Better", artist: "Tame Impala", src: "/assets/music/TLITB.mp3" },
-    { title: "DtMF", artist: "Bad Bunny", src: "/assets/music/dtmf.mp3" },
-    { title: "Billie Jean", artist: "Michael Jackson", src: "/assets/music/billieJean.mp3" },
-    { title: "Masakali", artist: "", src: "/assets/music/masakali.mp3" },
-    { title: "Raghunath", artist: "", src: "/assets/music/raghunath.mp3" },
-    { title: "MC Sher", artist: "", src: "/assets/music/mcsher.mp3" },
-    { title: "Raftaar", artist: "", src: "/assets/music/raftaar.mp3" },
-    { title: "Spider-Man", artist: "", src: "/assets/music/spiderMan.mp3" },
-  ],
-
   // =========================================================
   // SOCIAL LINKS
   // =========================================================

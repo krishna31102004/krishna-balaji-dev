@@ -34,7 +34,7 @@ Most content is in `src/config/site.ts`: bio, projects, experience, links, playl
 |---|---|
 | Photos | `public/profile.webp` (default), `public/profile2.webp` |
 | Resume | `public/resume.pdf` |
-| Songs | `public/assets/music/`, then `playlist` in `site.ts` |
+| Songs | Spotify playlist: `SPOTIFY_PLAYLIST_ID`, `SPOTIFY_PLAYLIST_NAME` and `SPOTIFY_TRACKS` at the top of `site.ts` |
 | Themes | `src/components/theme-provider.tsx`, `src/index.css` |
 | Festive effects | `src/components/festive-scenes.ts`, `festive-layer.tsx` |
 | Terminal commands | `src/components/terminal.tsx` |

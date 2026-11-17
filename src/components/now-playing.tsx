@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { ListMusic, Music2, Pause, Play, SkipForward, X } from "lucide-react";
+import { ListMusic, Music2, Pause, Play, X } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { site, SPOTIFY_PLAYLIST_ID, SPOTIFY_PLAYLIST_NAME, SPOTIFY_TRACKS } from "@/config/site";
+import { SPOTIFY_PLAYLIST_ID, SPOTIFY_PLAYLIST_NAME, SPOTIFY_TRACKS } from "@/config/site";
 
 const toMs = (len: string) => {
   const [m, s] = len.split(":").map(Number);
@@ -130,15 +130,11 @@ function spotifyOembedUrl(uri: string): string | null {
 }
 
 /**
- * Small floating player. Starts paused (browsers block autoplay anyway),
- * plays the playlist in order and loops. The X switches it off for good
+ * Small floating player for the Spotify playlist. Play opens the playlist
+ * until a song has started, then controls it. The X switches it off for good
  * on this device; the music note brings it back.
  */
 export function NowPlaying() {
-  const tracks = site.playlist;
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const [index, setIndex] = useState(0);
-  const [playing, setPlaying] = useState(false);
   const [hidden, setHidden] = useState(() => {
     try {
       return localStorage.getItem(HIDDEN_KEY) === "1";
@@ -147,10 +143,7 @@ export function NowPlaying() {
     }
   });
 
-  const track = tracks[index];
-
-  // Which player the pill reflects. Spotify's embed reports playback via the iFrame API.
-  const [source, setSource] = useState<"local" | "spotify">("local");
+  // The pill reflects the Spotify embed, which reports playback via the iFrame API.
   const [spotifyPlaying, setSpotifyPlaying] = useState(false);
   const [spotifyUri, setSpotifyUri] = useState<string | null>(null);
   const [spotifyDuration, setSpotifyDuration] = useState(0);
@@ -170,26 +163,11 @@ export function NowPlaying() {
   const handleSpotifyUpdate = (state: SpotifyPlaybackState) => {
     if (state.playingURI) setSpotifyUri(state.playingURI);
     if (state.duration) setSpotifyDuration(state.duration);
-    if (!state.isPaused) {
-      setSource("spotify");
-      setPlaying(false); // pauses the local audio via the effect below
-      setSpotifyPlaying(true);
-    } else {
-      setSpotifyPlaying(false);
-    }
+    setSpotifyPlaying(!state.isPaused);
   };
   const handleSpotifyController = (c: SpotifyController | null) => {
     spotifyRef.current = c;
-    if (!c) {
-      // Embed torn down (popup closed): its audio stops with it.
-      setSpotifyPlaying(false);
-      setSource("local");
-    }
-  };
-  const switchToLocal = () => {
-    spotifyRef.current?.pause();
-    setSpotifyPlaying(false);
-    setSource("local");
+    if (!c) setSpotifyPlaying(false); // embed torn down: its audio stops with it
   };
 
   // Resolve a title for the Spotify track via oEmbed (cached, stale requests aborted).
@@ -221,8 +199,8 @@ export function NowPlaying() {
     return () => ctrl.abort();
   }, [spotifyUri]);
 
-  const fromSpotify = source === "spotify";
-  const isPlaying = fromSpotify ? spotifyPlaying : playing;
+  const isPlaying = spotifyPlaying;
+  const started = spotifyUri !== null || spotifyDuration > 0;
   const spotifyTitle = spotifyMeta && spotifyMeta.uri === spotifyUri ? spotifyMeta.title : null;
   // Logged out: Spotify reports the track, so oEmbed gives the title and the
   // list gives the artist. Logged in: it reports only the playlist and the
@@ -232,29 +210,23 @@ export function NowPlaying() {
     : null;
   const byLength = !spotifyTitle && spotifyDuration ? matchByLength(spotifyDuration) : null;
   const spotifyMatch = byTitle ?? byLength;
-  const displayTitle = fromSpotify
+  const displayTitle = started
     ? spotifyTitle ?? spotifyMatch?.title ?? SPOTIFY_PLAYLIST_NAME
-    : track.title;
-  const displayArtist = fromSpotify
+    : SPOTIFY_PLAYLIST_NAME;
+  const displayArtist = started
     ? spotifyMatch?.artist ?? (spotifyTitle ? null : "Spotify")
-    : track.artist;
+    : "Spotify";
 
+  // Before anything has played, play opens the playlist so the visitor picks a song.
   const togglePlay = () => {
-    if (fromSpotify) {
-      spotifyRef.current?.togglePlay();
+    if (started && spotifyRef.current) {
+      spotifyRef.current.togglePlay();
       return;
     }
-    spotifyRef.current?.pause();
-    setPlaying((p) => !p);
-  };
-  const skip = () => {
-    if (fromSpotify) switchToLocal();
-    setIndex((i) => (i + 1) % tracks.length);
-    if (fromSpotify) setPlaying(true);
+    openPopup();
   };
 
   const openPopup = () => {
-    setPlaying(false); // pause the site's own audio
     setPopupMounted(true);
     setPopupOpen(true);
   };
@@ -296,20 +268,9 @@ export function NowPlaying() {
     };
   }, [popupOpen]);
 
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    audio.volume = 0.35;
-    if (playing) audio.play().catch(() => setPlaying(false));
-    else audio.pause();
-  }, [playing, index]);
-
-  const next = () => setIndex((i) => (i + 1) % tracks.length); // local auto-advance
-
   const setHiddenPersist = (value: boolean) => {
     setHidden(value);
     if (value) {
-      setPlaying(false);
       spotifyRef.current?.pause();
       setPopupOpen(false);
     }
@@ -322,13 +283,6 @@ export function NowPlaying() {
 
   return (
     <>
-      <audio
-        ref={audioRef}
-        src={track.src}
-        preload="none"
-        onEnded={next}
-      />
-
       <AnimatePresence mode="wait">
         {hidden ? (
           <motion.button
@@ -427,15 +381,6 @@ export function NowPlaying() {
               className="text-[var(--muted)] transition-colors hover:text-[var(--fg)] cursor-pointer"
             >
               <ListMusic className="size-3.5" />
-            </button>
-
-            <button
-              type="button"
-              onClick={skip}
-              aria-label={fromSpotify ? "Switch to site playlist" : "Next song"}
-              className="text-[var(--muted)] transition-colors hover:text-[var(--fg)] cursor-pointer"
-            >
-              <SkipForward className="size-3.5" />
             </button>
 
             <button
