@@ -199,7 +199,7 @@ export function ContactPage() {
                   </span>
 
                   <span className="text-[11px] text-[var(--muted)]">
-                    Freelance · Internships · Full-Time
+                    Summer 2027 SWE internships
                   </span>
                 </div>
               </div>

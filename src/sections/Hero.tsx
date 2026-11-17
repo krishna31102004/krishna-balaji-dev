@@ -51,6 +51,7 @@ data-cursor-label="click to view memories"
       <HireMeWeb/>
       <FloatingMessage
   image="/profile.webp"
+  imageAlt={site.name}
   message="Have A Good Day!"
   className="absolute right-[12%] top-[30%] z-30 hidden md:block"
   avatarBorderColor="border-blue-800"
@@ -148,7 +149,7 @@ data-cursor-label="click to view memories"
                 <span>·</span>
                 <span className="flex items-center gap-1">
                   <Eye size={12} className="shrink-0" />
-                  <span>{isLoading ? "..." : count?.toLocaleString()} views</span>
+                  <span>{isLoading ? "..." : count?.toLocaleString()} total visits</span>
                 </span>
               </p>
             </div>

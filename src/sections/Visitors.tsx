@@ -122,7 +122,7 @@ export function Visitors() {
         title="Visitors"
         aside={
           <span className="font-mono text-[10px] tracking-wider text-[var(--soft)]">
-            {visits.length} recent · {countries} countries
+            {visits.length} recent visits · {countries} {countries === 1 ? "country" : "countries"}
           </span>
         }
       />

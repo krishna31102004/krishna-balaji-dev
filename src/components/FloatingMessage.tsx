@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface FloatingMessageProps {
   image?: string;
+  /** Alt text for the avatar. Leave empty when it only repeats another avatar nearby. */
+  imageAlt?: string;
   message?: string;
 
   className?: string;
@@ -24,6 +26,7 @@ const avatarSizes = {
 
 export function FloatingMessage({
   image,
+  imageAlt = "",
   message,
   className = "absolute left-[8%] bottom-[22%] z-30 hidden md:block",
   avatarSize = "md",
@@ -86,7 +89,7 @@ export function FloatingMessage({
           {image ? (
             <img
               src={image}
-              alt=""
+              alt={imageAlt}
               className="h-full w-full object-cover"
             />
           ) : (
