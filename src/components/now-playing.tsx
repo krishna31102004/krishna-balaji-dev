@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { Music2, Pause, Play, SkipForward, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { site } from "@/config/site";
+import { ListMusic, Music2, Pause, Play, SkipForward, X } from "lucide-react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { site, SPOTIFY_PLAYLIST_ID } from "@/config/site";
 
 const HIDDEN_KEY = "now-playing-hidden";
 
@@ -25,6 +25,58 @@ export function NowPlaying() {
 
   const track = tracks[index];
 
+  const reduceMotion = useReducedMotion();
+  const [popupOpen, setPopupOpen] = useState(false);
+  // Mount the iframe only after the first open so it adds nothing to page load.
+  const [popupMounted, setPopupMounted] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  const openPopup = () => {
+    setPlaying(false); // pause the site's own audio
+    setPopupMounted(true);
+    setPopupOpen(true);
+  };
+  const closePopup = (restoreFocus = true) => {
+    setPopupOpen(false);
+    if (restoreFocus) triggerRef.current?.focus();
+  };
+
+  useEffect(() => {
+    if (!popupOpen) return;
+    closeBtnRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closePopup();
+        return;
+      }
+      if (e.key === "Tab" && popupRef.current) {
+        const f = popupRef.current.querySelectorAll<HTMLElement>("button, iframe, [href], [tabindex]:not([tabindex='-1'])");
+        if (!f.length) return;
+        const first = f[0];
+        const last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    const onDown = (e: PointerEvent) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) closePopup(false);
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onDown);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onDown);
+    };
+  }, [popupOpen]);
+
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -37,7 +89,10 @@ export function NowPlaying() {
 
   const setHiddenPersist = (value: boolean) => {
     setHidden(value);
-    if (value) setPlaying(false);
+    if (value) {
+      setPlaying(false);
+      setPopupOpen(false);
+    }
     try {
       localStorage.setItem(HIDDEN_KEY, value ? "1" : "0");
     } catch {
@@ -71,12 +126,53 @@ export function NowPlaying() {
         ) : (
           <motion.div
             key="player"
+            ref={wrapRef}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 16 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="fixed bottom-5 left-5 z-[9995] flex max-w-[calc(100vw-40px)] items-center gap-3 rounded-full border border-[var(--line)] bg-[var(--card)]/90 py-1.5 pl-1.5 pr-3 shadow-lg backdrop-blur-md"
+            className="fixed bottom-5 left-5 z-[9995] max-w-[calc(100vw-40px)]"
           >
+            <AnimatePresence>
+              {popupOpen && (
+                <motion.div
+                  ref={popupRef}
+                  role="dialog"
+                  aria-label="Spotify playlist"
+                  initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 12, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={reduceMotion ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, y: 12, scale: 0.98 }}
+                  transition={reduceMotion ? { duration: 0 } : { duration: 0.2, ease: "easeOut" }}
+                  className="absolute bottom-full left-0 mb-3 w-[min(360px,calc(100vw-40px))] max-h-[calc(100dvh-96px)] overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--card)] p-2 shadow-2xl backdrop-blur-md"
+                >
+                  <div className="flex items-center justify-between px-2 pb-2 pt-1">
+                    <p className="font-mono text-[10px] uppercase tracking-wider text-[var(--soft)]">Playlist</p>
+                    <button
+                      ref={closeBtnRef}
+                      type="button"
+                      onClick={() => closePopup()}
+                      aria-label="Close playlist"
+                      className="grid size-6 place-items-center rounded-full text-[var(--muted)] transition-colors hover:text-[var(--fg)] cursor-pointer"
+                    >
+                      <X className="size-3.5" />
+                    </button>
+                  </div>
+                  {popupMounted && (
+                    <iframe
+                      title="Spotify playlist player"
+                      src={`https://open.spotify.com/embed/playlist/${SPOTIFY_PLAYLIST_ID}?utm_source=generator&theme=0`}
+                      width="100%"
+                      height="352"
+                      loading="lazy"
+                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                      className="block w-full rounded-xl border-0"
+                    />
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <div className="flex items-center gap-3 rounded-full border border-[var(--line)] bg-[var(--card)]/90 py-1.5 pl-1.5 pr-3 shadow-lg backdrop-blur-md">
             <button
               type="button"
               onClick={() => setPlaying((p) => !p)}
@@ -90,7 +186,10 @@ export function NowPlaying() {
               )}
             </button>
 
-            <div className="min-w-0 leading-tight">
+            <div
+              className="min-w-0 cursor-pointer leading-tight"
+              onClick={() => (popupOpen ? closePopup() : openPopup())}
+            >
               <p className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider text-[var(--soft)]">
                 <Equalizer active={playing} />
                 {playing ? "Now playing" : "Paused"}
@@ -102,6 +201,18 @@ export function NowPlaying() {
                 )}
               </p>
             </div>
+
+            <button
+              ref={triggerRef}
+              type="button"
+              onClick={() => (popupOpen ? closePopup() : openPopup())}
+              aria-label="Open Spotify playlist"
+              aria-haspopup="dialog"
+              aria-expanded={popupOpen}
+              className="text-[var(--muted)] transition-colors hover:text-[var(--fg)] cursor-pointer"
+            >
+              <ListMusic className="size-3.5" />
+            </button>
 
             <button
               type="button"
@@ -120,6 +231,7 @@ export function NowPlaying() {
             >
               <X className="size-3.5" />
             </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

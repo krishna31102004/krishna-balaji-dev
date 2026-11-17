@@ -1,3 +1,10 @@
+/**
+ * Spotify playlist shown in the music player popup.
+ * TODO: replace with the real playlist ID (the part after /playlist/ in the
+ * Spotify share URL). This is the only place it needs to change.
+ */
+export const SPOTIFY_PLAYLIST_ID = "37i9dQZF1DXcBWIGoYBM5M";
+
 
 export type Project = {
   title: string;
